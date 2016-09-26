@@ -31,6 +31,7 @@
 ## Role Variables
 
 - **debug**: flag to run debug tasks.
+- **apache_build_dependencies**: list of packages needed to build [apache][apache].
 - **apache_dir**: symlink to the enabled [apache][apache] installation.
 - **apache_dir_install**: directory where [apache][apache] will be installed.
 - **apache_build_options**: option to be passed to `configure`.

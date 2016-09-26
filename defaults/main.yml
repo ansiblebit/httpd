@@ -4,6 +4,7 @@
 # defaults file
 #
 
+apache_build_dependencies: []
 apache_dir: "/usr/local/apache2"
 apache_dir_source: /usr/local/src
 apache_user: apache

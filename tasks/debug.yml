@@ -8,6 +8,7 @@
     var="{{ item }}"
   when: "{{ item }} is defined"
   with_items:
+    - apache_build_dependencies
     - apache_build_options
     - apache_dir
     - apache_dir_install
