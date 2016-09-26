@@ -13,6 +13,7 @@
     - apache_dir
     - apache_dir_cache
     - apache_dir_configuration
+    - apache_dir_envvars
     - apache_dir_install
     - apache_dir_source
     - apache_download_url
