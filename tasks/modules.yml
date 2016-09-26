@@ -8,5 +8,8 @@
   template:
     src=etc/apache2/mods-available
     path="{{ apache_dir_configuration }}/mods-available/{{ item }}.load"
+    owner="{{ apache_user }}"
+    group="{{ apache_user }}"
+    mode=0750
   with_items: "{{ apache_modules }}"
   become: yes
