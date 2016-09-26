@@ -17,3 +17,19 @@
     path="{{ apache_dir_modules }}"
     state=link
   become: yes
+
+- name: configuration | setup configuration directories
+  file:
+    path="{{ apache_dir_configuration }}{{ item }}"
+    owner="{{ apache_user }}"
+    group="{{ apache_user }}"
+    mode=0750
+  become: yes
+  with_items:
+    - ''
+    - /envvars
+    - /conf-available
+    - /mods-available
+    - /mods-enabled
+    - /sites-available
+    - /sites-enabled
