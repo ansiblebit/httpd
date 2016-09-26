@@ -3,3 +3,14 @@
 #
 # Test tasks to verify configuration.
 #
+
+- name: configuration | directory(ies) are present?
+  command: "test -d {{ apache_dir_configuration }}/{{ item }}"
+  with_items:
+    - ''
+    - /envvars
+    - /conf-available
+    - /mods-available
+    - /mods-enabled
+    - /sites-available
+    - /sites-enabled
