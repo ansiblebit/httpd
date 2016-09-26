@@ -11,6 +11,5 @@
 - include: validation.yml
   tags: validation
 
-- debug: >
-    msg="invoked"
-
+- include: build.yml
+  tags: build
