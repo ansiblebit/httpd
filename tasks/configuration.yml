@@ -34,3 +34,12 @@
     - /mods-enabled
     - /sites-available
     - /sites-enabled
+
+- name: configuration | service default
+  template:
+    src=etc/default/apache2.j2
+    dest=/etc/default/apache2
+    owner=root
+    group=root
+    mode=0644
+  become: yes
