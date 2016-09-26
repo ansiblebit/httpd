@@ -8,5 +8,6 @@
     var="{{ item }}"
   when: "{{ item }} is defined"
   with_items:
-    - debug
-
+    - apache_version
+    - apache_download_url
+    - apache_download_url_asc
