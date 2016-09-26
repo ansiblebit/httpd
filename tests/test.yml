@@ -18,6 +18,9 @@
   vars:
     debug: yes
 
+    apache2_user: vagrant
+
+
   roles:
     - role: apache
 
