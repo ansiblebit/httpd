@@ -20,7 +20,7 @@
 - name: copy to server expected configuration
   copy:
     src=files/etc/default/apache2
-    dest=/tmp/default_apache2.expected
+    dest=/tmp/etc_default_apache2.expected
     owner="{{ apache_user }}"
     group="{{ apache_user }}"
     mode=0644
@@ -28,6 +28,6 @@
   changed_when: no
 
 - name: ensure config was generated as expected
-  command: diff -q -w /etc/default/apache2 /tmp/default_apache2.expected
+  command: diff -q -w /etc/default/apache2 /tmp/etc_default_apache2.expected
   become: yes
   changed_when: no
