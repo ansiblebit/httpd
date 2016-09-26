@@ -4,32 +4,28 @@
 # Test tasks to verify build.
 #
 
-- name: are package(s) installed?
+- name: build | are apache build dependencies installed?
   command: "dpkg-query -W -f='${Status}\n' {{ item }}"
   register: test
   failed_when: test.stdout.find('install ok installed') == -1
   with_items: "{{ apache_build_dependencies }}"
   changed_when: no
 
-- name: file(s) are present?
+- name: build | file(s) are present?
   command: "test -e {{ item }}"
   with_items:
     - "{{ apache_dir_source }}/{{ apache_tarball }}"
     - "{{ apache_dir_source }}/{{ apache_tarball }}.md5"
   changed_when: no
 
-- name: directory(ies) are present?
+- name: build | directory(ies) are present?
   command: "test -d {{ item }}"
   with_items:
-    - apache_dir_cache
-    - apache_dir_configuration
-    - apache_dir_envvars
-    - apache_dir_log
     - apache_dir_source
     - "{{ apache_dir_source }}/httpd-{{ apache_version }}"
   changed_when: no
 
-- name: symlink(s) are present?
+- name: build | symlink(s) are present?
   command: "test -h {{ item }}"
   with_items:
     - apache_dir
