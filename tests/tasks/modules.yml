@@ -1,0 +1,5 @@
+---
+# file: apache/tests/tasks/modules.yml
+#
+# Test tasks to verify modules configuration.
+#

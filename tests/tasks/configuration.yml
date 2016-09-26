@@ -1,0 +1,5 @@
+---
+# file: apache/tests/tasks/configuration.yml
+#
+# Test tasks to verify configuration.
+#
