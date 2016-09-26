@@ -18,7 +18,7 @@
   vars:
     debug: yes
 
-    apache_user.name:
+    apache_user:
       name: vagrant
       home: /home/vagrant
       shell: /usr/sbin/nologin
