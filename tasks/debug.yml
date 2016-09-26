@@ -19,5 +19,6 @@
     - apache_download_url
     - apache_download_url_asc
     - apache_download_url_md5
+    - apache_modules
     - apache_user
     - apache_version
