@@ -31,10 +31,14 @@
 ## Role Variables
 
 - **debug**: flag to run debug tasks.
-- **apache_version**: the [apache][apache] version to be installed.
+- **apache_build_options**: option to be passed to `configure`.
+- **apache_dir_source**: directory where to build the application.
 - **apache_download_url**: the URL for the tarball.
 - **apache_download_url_asc**: the URL for the tarball PGP signature.
 - **apache_download_url_md5**: the URL for the tarball MD5 checksum.
+- **apache_tarball**: filename of the tarball.
+- **apache_user**: user under which apache will be running.
+- **apache_version**: the [apache][apache] version to be installed.
 
 
 ## Dependencies
