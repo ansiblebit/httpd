@@ -22,4 +22,6 @@
   command: "test -d {{ item }}"
   with_items:
     - "{{ apache_dir_source }}/httpd-{{ apache_version }}"
+    - apache_dir_cache
+    - apache_dir_configuration
   changed_when: no
