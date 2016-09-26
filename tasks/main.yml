@@ -13,7 +13,7 @@
     name="{{ apache_user.name }}"
     home="{{ apache_user.home }}"
     shell="{{ apache_user.shell }}"
-    uid="{{ apache_user.uid }}"
+    uid="{{ apache_user.uid| default(None) }}"
     system=yes
     state=present
   become: yes
