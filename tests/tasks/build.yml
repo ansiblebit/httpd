@@ -15,10 +15,11 @@
   command: "test -e {{ item }}"
   with_items:
     - "{{ apache_dir_source }}/{{ apache_tarball }}"
+    - "{{ apache_dir_source }}/{{ apache_tarball }}.md5"
   changed_when: no
 
 - name: directory(ies) are present?
   command: "test -d {{ item }}"
   with_items:
-    - "{{ apache_dir_source }}/apache-{{ apache_version }}"
+    - "{{ apache_dir_source }}/httpd-{{ apache_version }}"
   changed_when: no
