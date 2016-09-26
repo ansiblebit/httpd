@@ -19,10 +19,10 @@
   changed_when: no
 
 - name: build | directory(ies) are present?
-  command: "test -d {{ item }}"
+  command: "test -d {{ apache_dir_source }}/{{ item }}"
   with_items:
-    - apache_dir_source
-    - "{{ apache_dir_source }}/httpd-{{ apache_version }}"
+    - ''
+    - "httpd-{{ apache_version }}"
   changed_when: no
 
 - name: build | symlink(s) are present?
