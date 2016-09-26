@@ -11,9 +11,9 @@
     state=link
   become: yes
 
-- name: configuration | setup /usr/lib/apache2/modules directory link
+- name: configuration | setup modules directory link
   file:
     src=/usr/local/apache2/modules
-    path=/usr/lib/apache2/modules
+    path="{{ apache_dir_modules }}"
     state=link
   become: yes

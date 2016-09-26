@@ -15,6 +15,7 @@
     - apache_dir_configuration
     - apache_dir_envvars
     - apache_dir_install
+    - apache_dir_modules
     - apache_dir_source
     - apache_download_url
     - apache_download_url_asc

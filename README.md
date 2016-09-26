@@ -38,6 +38,7 @@
 - **apache_dir_envvars**: .
 - **apache_dir_install**: directory where [apache][apache] will be installed.
 - **apache_build_options**: option to be passed to `configure`.
+- **apache_dir_modules**: directory where [apache][apache] modules are located.
 - **apache_dir_source**: directory where to build [apache][apache].
 - **apache_download_url**: the URL for the tarball.
 - **apache_download_url_asc**: the URL for the tarball PGP signature.
