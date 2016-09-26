@@ -11,6 +11,22 @@
   become: yes
   with_items: "{{ apache_build_dependencies }}"
 
+- name: build | download tarball MD5
+  get_url:
+    url="{{ apache_download_url_md5 }}"
+    dest="{{ apache_dir_source }}/{{ apache_tarball }}.md5"
+    owner="{{ ansible_env.USER }}"
+    group="{{ ansible_env.USER }}"
+    mode=0440
+    validate_certs=no
+  become: yes
+
+- name: build | register MD5 into a variable
+  command: "cat {{ apache_dir_source }}/{{ apache_tarball }}.md5"
+  register: task_apache_md5
+  changed_when: no
+  become: yes
+
 - name: build | download tarball
   get_url:
     url="{{ apache_download_url }}"
@@ -18,7 +34,8 @@
     owner="{{ ansible_env.USER }}"
     group="{{ ansible_env.USER }}"
     mode=0440
-    checksum="md5:{{ apache_download_url_md5 }}"
+    checksum="md5:{{ task_apache_md5.stdout.split(' ')[0] }}"
+    validate_certs=no
   become: yes
   register: task_apache_download
 
@@ -35,18 +52,18 @@
 - name: build | configure
   command: "./configure {{ apache_build_options }}"
   args:
-    chdir: "{{ apache_dir_source }}/apache-{{ apache_version }}"
+    chdir: "{{ apache_dir_source }}/httpd-{{ apache_version }}"
   when: task_apache_download.changed
 
 - name: build | build
   command: make
   args:
-    chdir: "{{ apache_dir_source }}/apache-{{ apache_version }}"
+    chdir: "{{ apache_dir_source }}/httpd-{{ apache_version }}"
   when: task_apache_download.changed
 
 - name: build | install
   command: make install
   args:
-    chdir: "{{ apache_dir_source }}/apache-{{ apache_version }}"
+    chdir: "{{ apache_dir_source }}/httpd-{{ apache_version }}"
   become: yes
   when: task_apache_download.changed
