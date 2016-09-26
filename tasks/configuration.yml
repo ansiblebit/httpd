@@ -21,8 +21,8 @@
 - name: configuration | setup configuration directories
   file:
     path="{{ apache_dir_configuration }}{{ item }}"
-    owner="{{ apache_user }}"
-    group="{{ apache_user }}"
+    owner="{{ apache_user.name }}"
+    group="{{ apache_user.name }}"
     mode=0750
     state=directory
   become: yes

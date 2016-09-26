@@ -21,8 +21,8 @@
   copy:
     src=files/etc/default/apache2
     dest=/tmp/etc_default_apache2.expected
-    owner="{{ apache_user }}"
-    group="{{ apache_user }}"
+    owner="{{ apache_user.name }}"
+    group="{{ apache_user.name }}"
     mode=0644
   become: yes
   changed_when: no

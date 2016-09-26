@@ -8,6 +8,11 @@
   when: debug | default(false)
   tags: debug
 
+- name: setup apache account
+  user:
+
+  become: yes
+
 - include: validation.yml
   tags: validation
 

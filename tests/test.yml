@@ -18,7 +18,12 @@
   vars:
     debug: yes
 
-    apache_user: vagrant
+    apache_user.name:
+      name: vagrant
+      home: /home/vagrant
+      shell: /usr/sbin/nologin
+      uid: ''
+
     apache_default: |
       ### htcacheclean settings ###
 
