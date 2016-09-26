@@ -10,6 +10,7 @@
   with_items:
     - apache_build_dependencies
     - apache_build_options
+    - apache_default
     - apache_dir
     - apache_dir_cache
     - apache_dir_configuration

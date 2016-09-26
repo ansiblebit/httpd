@@ -32,6 +32,7 @@
 
 - **debug**: flag to run debug tasks.
 - **apache_build_dependencies**: list of packages needed to build [apache][apache].
+- **apache_default**: contents of `/etc/default/apache2`.
 - **apache_dir**: symlink to the enabled [apache][apache] installation.
 - **apache_dir_cache**: directory for [apache][apache] cache.
 - **apache2_dir_configuration**: directory for [apache][apache] configuration.
