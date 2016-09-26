@@ -15,8 +15,8 @@
   get_url:
     url="{{ apache_download_url_md5 }}"
     dest="{{ apache_dir_source }}/{{ apache_tarball }}.md5"
-    owner="{{ apache2_user }}"
-    group="{{ apache2_user }}"
+    owner="{{ apache_user }}"
+    group="{{ apache_user }}"
     mode=0440
     validate_certs=no
   become: yes
@@ -31,8 +31,8 @@
   get_url:
     url="{{ apache_download_url }}"
     dest="{{ apache_dir_source }}/{{ apache_tarball }}"
-    owner="{{ apache2_user }}"
-    group="{{ apache2_user }}"
+    owner="{{ apache_user }}"
+    group="{{ apache_user }}"
     mode=0440
     checksum="md5:{{ task_apache_md5.stdout.split(' ')[0] }}"
     validate_certs=no
@@ -44,8 +44,8 @@
     src="{{ apache_dir_source }}/{{ apache_tarball }}"
     dest="{{ apache_dir_source }}"
     copy=no
-    owner="{{ apache2_user }}"
-    group="{{ apache2_user }}"
+    owner="{{ apache_user }}"
+    group="{{ apache_user }}"
   when: task_apache_download.changed
   become: yes
 
