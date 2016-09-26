@@ -21,7 +21,16 @@
 - name: directory(ies) are present?
   command: "test -d {{ item }}"
   with_items:
-    - "{{ apache_dir_source }}/httpd-{{ apache_version }}"
     - apache_dir_cache
     - apache_dir_configuration
+    - apache_dir_envvars
+    - apache_dir_log
+    - apache_dir_source
+    - "{{ apache_dir_source }}/httpd-{{ apache_version }}"
   changed_when: no
+
+- name: symlink(s) are present?
+  command: "test -h {{ item }}"
+  with_items:
+    - apache_dir
+    - apache_dir_modules
