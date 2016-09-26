@@ -14,3 +14,17 @@
     - /mods-enabled
     - /sites-available
     - /sites-enabled
+
+- name: copy to server expected configuration
+  copy:
+    src=files/default_apache2
+    dest=/tmp/default_apache2.expected
+    owner="{{ apache_user }}"
+    group="{{ apache_user }}"
+    mode=0644
+  become: yes
+  changed_when: no
+
+- name: ensure config was generated as expected
+  command: diff -q -w /etc/default/apache2 /tmp/default_apache2.expected
+  changed_when: no
