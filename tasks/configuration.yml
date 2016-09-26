@@ -1,0 +1,19 @@
+---
+# file: apache/tasks/configuration.yml
+#
+# configuration tasks.
+#
+
+- name: configuration | setup /usr/local/apache2 directory link
+  file:
+    src="/usr/local/apache2-{{ apache_version }}"
+    path=/usr/local/apache2
+    state=link
+  become: yes
+
+- name: configuration | setup /usr/lib/apache2/modules directory link
+  file:
+    src=/usr/local/apache2/modules
+    path=/usr/lib/apache2/modules
+    state=link
+  become: yes

@@ -13,3 +13,6 @@
 
 - include: build.yml
   tags: build
+
+- include: configuration.yml
+  tags: configuration
