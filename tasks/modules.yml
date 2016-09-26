@@ -6,7 +6,7 @@
 
 - name: modules | setup /usr/local/apache2 directory link
   template:
-    src=etc/apache2/mods-available
+    src=etc/apache2/mods-available/mod.load.j2
     path="{{ apache_dir_configuration }}/mods-available/{{ item }}.load"
     owner="{{ apache_user }}"
     group="{{ apache_user }}"
