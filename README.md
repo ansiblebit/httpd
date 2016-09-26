@@ -31,6 +31,9 @@
 ## Role Variables
 
 - **debug**: flag to run debug tasks.
+- **apache_version**: the [apache][apache] version to be installed.
+- **apache_download_url**: the URL for the tarball.
+- **apache_download_url_asc**: the URL for the tarball PGP signature.
 
 
 ## Dependencies
