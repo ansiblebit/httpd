@@ -1,0 +1,24 @@
+---
+# file: apache/tests/tasks/build.yml
+#
+# Test tasks to verify build.
+#
+
+- name: are package(s) installed?
+  command: "dpkg-query -W -f='${Status}\n' {{ item }}"
+  register: test
+  failed_when: test.stdout.find('install ok installed') == -1
+  with_items: "{{ apache_build_dependencies }}"
+  changed_when: no
+
+- name: file(s) are present?
+  command: "test -e {{ item }}"
+  with_items:
+    - "{{ apache_dir_source }}/{{ apache_tarball }}"
+  changed_when: no
+
+- name: directory(ies) are present?
+  command: "test -d {{ item }}"
+  with_items:
+    - "{{ apache_dir_source }}/apache-{{ apache_version }}"
+  changed_when: no
