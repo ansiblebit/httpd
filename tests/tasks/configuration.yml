@@ -19,7 +19,7 @@
 
 - name: copy to server expected configuration
   copy:
-    src=files/default_apache2
+    src=files/etc/default/apache2
     dest=/tmp/default_apache2.expected
     owner="{{ apache_user }}"
     group="{{ apache_user }}"
