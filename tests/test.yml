@@ -1,5 +1,5 @@
 ---
-# file: primogen/tests/test.yml
+# file: apache/tests/test.yml
 
 - name: setup python2
   hosts: "{{ vagrant_box }}"
@@ -19,7 +19,7 @@
     debug: yes
 
   roles:
-    - role: primogen
+    - role: apache
 
     - role: tests
       tags: test
