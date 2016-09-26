@@ -125,7 +125,11 @@ apache_modules:
 
 apache_modules_enabled: []
 
-apache_user: apache
+apache_user:
+  name: www-data
+  home: /var/www-data
+  shell: /usr/sbin/nologin
+
 apache_version: 2.4.23
 
 
