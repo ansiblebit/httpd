@@ -9,7 +9,10 @@
     msg="{{ item }} is a mandatory variable"
   when: "{{ item }} is not defined"
   with_items:
-    - apache_version
+    - apache_build_options
+    - apache_dir_source
     - apache_download_url
     - apache_download_url_asc
     - apache_download_url_md5
+    - apache_user
+    - apache_version
