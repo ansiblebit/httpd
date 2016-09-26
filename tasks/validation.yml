@@ -10,6 +10,8 @@
   when: "{{ item }} is not defined"
   with_items:
     - apache_build_options
+    - apache_dir
+    - apache_dir_install
     - apache_dir_source
     - apache_download_url
     - apache_download_url_asc
