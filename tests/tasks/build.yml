@@ -30,3 +30,4 @@
   with_items:
     - "{{ apache_dir }}"
     - "{{ apache_dir_modules }}"
+  changed_when: no
