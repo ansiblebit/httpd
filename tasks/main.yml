@@ -10,7 +10,12 @@
 
 - name: setup apache account
   user:
-
+    name="{{ apache_user.name }}"
+    home="{{ apache_user.home }}"
+    shell="{{ apache_user.shell }}"
+    uid="{{ apache_user.uid }}"
+    system=yes
+    state=present
   become: yes
 
 - include: validation.yml
