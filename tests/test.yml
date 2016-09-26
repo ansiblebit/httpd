@@ -21,8 +21,7 @@
     apache_user:
       name: vagrant
       home: /home/vagrant
-      shell: /usr/sbin/nologin
-      uid: ''
+      shell: /bin/bash
 
     apache_default: |
       ### htcacheclean settings ###
