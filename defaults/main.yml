@@ -11,7 +11,9 @@ apache_build_dependencies:
   - libpcre3-dev
 
 apache_dir: /usr/local/apache2
+apache_dir_cache: /var/cache/apache2
 apache_dir_configuration: /etc/apache2
+apache_dir_log: /var/log/apache2
 apache_dir_source: /usr/local/src
 apache_user: apache
 apache_version: 2.4.23
