@@ -24,6 +24,7 @@
     owner="{{ apache_user }}"
     group="{{ apache_user }}"
     mode=0750
+    state=directory
   become: yes
   with_items:
     - ''
