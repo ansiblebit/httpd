@@ -88,5 +88,12 @@ $ vagrant ssh trusty64.vagrant.dev
 ```
 
 
+## Links
+
+- [Apache > HTTP Server > Documentation > Version 2.4 > Compiling and Installing](https://httpd.apache.org/docs/current/install.html)
+- [Apache > HTTP Server > Documentation > Version 2.4 > Programs > configure - Configure the source tree](https://httpd.apache.org/docs/current/programs/configure.html)
+- [Verifying Apache HTTP Server Releases](http://httpd.apache.org/dev/verification.html)
+
+
 [ansible]:  https://ansible.com/    "Ansible"
 [apache]:   http://httpd.apache.org/    "Apache HTTP server"
