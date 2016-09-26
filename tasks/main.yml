@@ -8,6 +8,9 @@
   when: debug | default(false)
   tags: debug
 
+- include: validation.yml
+  tags: validation
+
 - name: setup apache account
   user:
     name="{{ apache_user.name }}"
@@ -17,9 +20,6 @@
     system=yes
     state=present
   become: yes
-
-- include: validation.yml
-  tags: validation
 
 - include: build.yml
   tags: build
