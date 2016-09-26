@@ -10,7 +10,8 @@ apache_build_dependencies:
   - libaprutil1-dev
   - libpcre3-dev
 
-apache_dir: "/usr/local/apache2"
+apache_dir: /usr/local/apache2
+apache_dir_configuration: /etc/apache2
 apache_dir_source: /usr/local/src
 apache_user: apache
 apache_version: 2.4.23
