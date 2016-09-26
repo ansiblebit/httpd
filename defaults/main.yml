@@ -13,7 +13,6 @@ apache_build_dependencies:
 apache_dir: /usr/local/apache2
 apache_dir_cache: /var/cache/apache2
 apache_dir_configuration: /etc/apache2
-apache_dir_envvars: "{{ apache_dir_configuration }}/envvars"
 apache_dir_log: /var/log/apache2
 apache_dir_modules: /usr/lib/apache2/modules
 apache_dir_source: /usr/local/src
@@ -123,6 +122,8 @@ apache_modules:
   - usertrack
   - vhost_alias
   - xml2enc
+
+apache_modules_enabled: []
 
 apache_user: apache
 apache_version: 2.4.23

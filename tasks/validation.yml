@@ -22,5 +22,6 @@
     - apache_download_url_asc
     - apache_download_url_md5
     - apache_modules
+    - apache_modules_enabled
     - apache_user
     - apache_version

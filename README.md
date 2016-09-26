@@ -44,6 +44,7 @@
 - **apache_download_url_asc**: the URL for the tarball PGP signature.
 - **apache_download_url_md5**: the URL for the tarball MD5 checksum.
 - **apache_modules**: list of [apache][apache] modules.
+- **apache_modules_enabled**: list of enabled [apache][apache] modules.
 - **apache_tarball**: filename of the tarball.
 - **apache_user**: user under which apache will be running.
 - **apache_version**: the [apache][apache] version to be installed.
