@@ -10,6 +10,6 @@
     dest="{{ apache_dir_configuration }}/mods-available/{{ item }}.load"
     owner="{{ apache_user }}"
     group="{{ apache_user }}"
-    mode=0750
+    mode=0644
   with_items: "{{ apache_modules }}"
   become: yes
