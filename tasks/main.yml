@@ -16,3 +16,6 @@
 
 - include: configuration.yml
   tags: configuration
+
+- include: modules.yml
+  tags: modules
