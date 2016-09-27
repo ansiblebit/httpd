@@ -32,7 +32,7 @@ elif [ "${SCRIPTNAME##httpd-}" != "$SCRIPTNAME" ] ; then
 	APACHE_CONFDIR=/etc/httpd$DIR_SUFFIX
 else
 	DIR_SUFFIX=
-	APACHE_CONFDIR={{ httpd_dir_configuration }}
+	APACHE_CONFDIR=/etc/httpd
 fi
 if [ -z "$APACHE_ENVVARS" ] ; then
 	APACHE_ENVVARS=$APACHE_CONFDIR/envvars
