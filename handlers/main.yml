@@ -3,3 +3,21 @@
 #
 # handlers file
 #
+
+- name: start httpd
+  service:
+    name=httpd
+    state=started
+  become: yes
+
+- name: stop httpd
+  service:
+    name=httpd
+    state=stopped
+  become: yes
+
+- name: restart httpd
+  service:
+    name=httpd
+    state=restarted
+  become: yes

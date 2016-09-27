@@ -10,6 +10,7 @@
     path=/usr/local/httpd
     state=link
   become: yes
+  notify: restart httpd
 
 - name: configuration | setup modules directory link
   file:
@@ -17,6 +18,7 @@
     path="{{ httpd_dir_lib }}"
     state=link
   become: yes
+  notify: restart httpd
 
 - name: configuration | setup configuration directories
   file:
@@ -33,6 +35,7 @@
     - /mods-enabled
     - /sites-available
     - /sites-enabled
+  notify: restart httpd
 
 - name: configuration | /etc/default/httpd
   template:
@@ -42,6 +45,7 @@
     group="{{ httpd_user.name }}"
     mode=0644
   become: yes
+  notify: restart httpd
 
 - name: configuration | /etc/httpd/httpd.conf
   template:
@@ -51,6 +55,7 @@
     group="{{ httpd_user.name }}"
     mode=0644
   become: yes
+  notify: restart httpd
 
 - name: configuration | /etc/httpd/envvars
   template:
@@ -60,6 +65,7 @@
     group="{{ httpd_user.name }}"
     mode=0644
   become: yes
+  notify: restart httpd
 
 - name: configuration | /etc/httpd/ports.conf
   template:
@@ -69,6 +75,7 @@
     group="{{ httpd_user.name }}"
     mode=0644
   become: yes
+  notify: restart httpd
 
 - name: configuration | /etc/init.d/httpd
   template:
@@ -78,3 +85,4 @@
     group=root
     mode=0755
   become: yes
+  notify: restart httpd

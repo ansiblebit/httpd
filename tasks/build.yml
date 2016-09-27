@@ -67,3 +67,4 @@
     chdir: "{{ httpd_dir_source }}/httpd-{{ httpd_version }}"
   become: yes
   when: task_httpd_download.changed
+  notify: start httpd
