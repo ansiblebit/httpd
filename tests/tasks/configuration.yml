@@ -18,45 +18,25 @@
 
 - name: copy to server expected configuration
   copy:
-    src=files/etc/default/httpd
-    dest=/tmp/etc_default_httpd.expected
+    src="files/{{ item }}"
+    dest="/tmp/{{ item.replace('/', '_') }}.expected"
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644
   become: yes
+  with_items:
+    - etc/default/httpd
+    - etc/httpd/envvars
+    - etc/httpd/ports.conf
+    - etc/init.d/httpd
   changed_when: no
 
 - name: ensure config was generated as expected
-  command: diff -q -w /etc/default/httpd /tmp/etc_default_httpd.expected
+  command: "diff -q -w /{{ item }} /tmp/{{ item.replace('/', '_') }}.expected"
   become: yes
-  changed_when: no
-
-- name: copy to server expected envvars file
-  copy:
-    src=files/etc/httpd/envvars
-    dest=/tmp/etc_httpd_envvars.expected
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
-    mode=0644
-  become: yes
-  changed_when: no
-
-- name: ensure config was generated as expected
-  command: diff -q -w /etc/httpd/envvars /tmp/etc_httpd_envvars.expected
-  become: yes
-  changed_when: no
-
-- name: copy to server expected ports.conf file
-  copy:
-    src=files/etc/httpd/ports.conf
-    dest=/tmp/etc_httpd_ports.conf.expected
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
-    mode=0644
-  become: yes
-  changed_when: no
-
-- name: ensure config was generated as expected
-  command: diff -q -w /etc/httpd/ports.conf /tmp/etc_httpd_ports.conf.expected
-  become: yes
+  with_items:
+    - etc/default/httpd
+    - etc/httpd/envvars
+    - etc/httpd/ports.conf
+    - etc/init.d/httpd
   changed_when: no
