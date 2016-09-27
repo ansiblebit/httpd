@@ -50,7 +50,7 @@
   become: yes
 
 - name: build | configure
-  command: "./configure {{ httpd_build_options }}"
+  command: "./configure {{ ' '.join(httpd_build_options) }}"
   args:
     chdir: "{{ httpd_dir_source }}/httpd-{{ httpd_version }}"
   when: task_httpd_download.changed
