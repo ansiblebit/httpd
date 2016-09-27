@@ -51,3 +51,12 @@
     group=root
     mode=0644
   become: yes
+
+- name: configuration | service ports
+  template:
+    src=etc/httpd/ports.conf.j2
+    dest=/etc/httpd/ports.conf
+    owner=root
+    group=root
+    mode=0644
+  become: yes
