@@ -13,8 +13,10 @@ apache_build_dependencies:
 apache_dir: /usr/local/apache2
 apache_dir_cache: /var/cache/apache2
 apache_dir_configuration: /etc/apache2
+apache_dir_lock: /var/lock/apache2
 apache_dir_log: /var/log/apache2
 apache_dir_modules: /usr/lib/apache2
+apache_dir_run: /var/run/apache2
 apache_dir_source: /usr/local/src
 
 apache_modules:
@@ -168,3 +170,11 @@ apache_build_options: '--prefix={{ apache_dir_install }}'
 apache_download_url: "http://apache.osuosl.org//httpd/{{ apache_tarball }}"
 apache_download_url_asc: "https://www.apache.org/dist/httpd/{{ apache_tarball }}.asc"
 apache_download_url_md5: "https://www.apache.org/dist/httpd/{{ apache_tarball }}.md5"
+apache_env:
+  APACHE_RUN_USER: "{{ apache_user }}"
+  APACHE_RUN_GROUP: "{{ apache_user }}"
+  APACHE_PID_FILE: "{{ apache_dir_run }}/apache2.pid"
+  APACHE_RUN_DIR: "{{ apache_dir_run }}"
+  APACHE_LOCK_DIR: "{{ apache_dir_lock }}"
+  APACHE_LOG_DIR: "{{ apache_dir_log }}"
+  LANG: C
