@@ -28,7 +28,6 @@
   become: yes
   with_items:
     - ''
-    - /envvars
     - /conf-available
     - /mods-available
     - /mods-enabled
@@ -39,6 +38,15 @@
   template:
     src=etc/default/apache2.j2
     dest=/etc/default/apache2
+    owner=root
+    group=root
+    mode=0644
+  become: yes
+
+- name: configuration | service environment variables
+  template:
+    src=etc/apache2/envvars.j2
+    dest=/etc/apache2/envvars
     owner=root
     group=root
     mode=0644

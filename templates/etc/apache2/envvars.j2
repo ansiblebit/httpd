@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+# envvars - default environment variables for apache2ctl
+
+# this won't be correct after changing uid
+unset HOME
+
+{%  if apache_env is defined %}
+{%      for key, value in apache_env.iteritems() %}
+export {{ key }}={{ value }}
+{%      endfor %}
+{%  endif %}

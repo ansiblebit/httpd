@@ -1,0 +1,8 @@
+# Ansible managed file, do not edit directly
+
+# envvars - default environment variables for apache2ctl
+
+# this won't be correct after changing uid
+unset HOME
+
+export {{ key }}={{ value }}
