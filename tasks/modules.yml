@@ -4,7 +4,7 @@
 # module configuration tasks.
 #
 
-- name: modules | setup /usr/local/httpd directory link
+- name: modules | setup /etc/httpd/mods-available/*.load files
   template:
     src=etc/httpd/mods-available/mod.load.j2
     dest="{{ httpd_dir_configuration }}/mods-available/{{ item }}.load"
@@ -12,4 +12,32 @@
     group="{{ httpd_user.name }}"
     mode=0644
   with_items: "{{ httpd_modules }}"
+  become: yes
+
+- name: modules | enable modules
+  file:
+    src="/etc/httpd/mods-available/{{ item.name }}.load"
+    dest="/etc/httpd/mods-enabled/{{ item.name }}.load"
+    state=link
+  with_items: "{{ httpd_modules_enabled }}"
+  when: "{{ item.enabled }}"
+  become: yes
+
+- name: modules | disable modules
+  file:
+    path="/etc/httpd/mods-enabled/{{ item.name }}.load"
+    state=absent
+  with_items: "{{ httpd_modules_enabled }}"
+  when: "{{ not item.enabled }}"
+  become: yes
+
+- name: modules | setup enabled modules
+  template:
+    src=etc/httpd/mods-enabled/mod.conf.j2
+    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  with_items: "{{ httpd_modules_enabled }}"
+  when: "{{ item.enabled }}"
   become: yes
