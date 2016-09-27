@@ -15,11 +15,14 @@
     - apache_dir_cache
     - apache_dir_configuration
     - apache_dir_install
+    - apache_dir_lock
     - apache_dir_modules
+    - apache_dir_run
     - apache_dir_source
     - apache_download_url
     - apache_download_url_asc
     - apache_download_url_md5
+    - apache_env
     - apache_modules
     - apache_modules_enabled
     - apache_user.name
