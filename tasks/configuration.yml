@@ -34,7 +34,7 @@
     - /sites-available
     - /sites-enabled
 
-- name: configuration | service default
+- name: configuration | /etc/default/httpd
   template:
     src=etc/default/httpd.j2
     dest=/etc/default/httpd
@@ -43,7 +43,7 @@
     mode=0644
   become: yes
 
-- name: configuration | service environment variables
+- name: configuration | /etc/httpd/envvars
   template:
     src=etc/httpd/envvars.j2
     dest=/etc/httpd/envvars
@@ -52,7 +52,7 @@
     mode=0644
   become: yes
 
-- name: configuration | service ports
+- name: configuration | /etc/httpd/ports.conf
   template:
     src=etc/httpd/ports.conf.j2
     dest=/etc/httpd/ports.conf
