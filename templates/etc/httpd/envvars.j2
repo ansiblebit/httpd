@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+# envvars - default environment variables for httpdctl
+
+# this won't be correct after changing uid
+unset HOME
+
+{%  if httpd_env is defined %}
+{%      for key, value in httpd_env.iteritems() | sort %}
+export {{ key }}={{ value }}
+{%      endfor %}
+{%  endif %}

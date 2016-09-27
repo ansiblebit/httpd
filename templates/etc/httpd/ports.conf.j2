@@ -1,0 +1,7 @@
+# {{ ansible_managed }}
+
+{%  if httpd_ports is defined %}
+{%      for port in httpd_ports %}
+Listen {{ port }}
+{%      endfor %}
+{%  endif %}
