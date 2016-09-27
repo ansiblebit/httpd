@@ -213,7 +213,38 @@ httpd_modules:
   - vhost_alias
   - xml2enc
 
-httpd_modules_enabled: []
+httpd_modules_enabled:
+  - name: mpm_event
+    enabled: yes
+    configuration: |
+      # event MPM
+      <IfModule mpm_event_module>
+          # StartServers: initial number of server processes to start
+          StartServers			 2
+          # MinSpareThreads: minimum number of worker threads which are kept spare
+          MinSpareThreads		 25
+          # MaxSpareThreads: maximum number of worker threads which are kept spare
+          MaxSpareThreads		 75
+          ThreadLimit			 64
+          # ThreadsPerChild: constant number of worker threads in each server process
+          ThreadsPerChild		 25
+          # MaxRequestWorkers: maximum number of worker threads
+          MaxRequestWorkers	  150
+          # MaxConnectionsPerChild: maximum number of requests a server process serves
+          MaxConnectionsPerChild   0
+  - name: status
+    enabled: yes
+    configuration: |
+      <Location /httpd-status>
+          SetHandler server-status
+          Require ip 127.0.0.1/24
+      </Location>
+
+      ExtendedStatus On
+
+      <IfModule mod_proxy.c>
+          ProxyStatus On
+      </IfModule>
 
 httpd_ports:
   - 80
