@@ -1,0 +1,14 @@
+# Ansible managed file, do not edit directly
+
+# envvars - default environment variables for httpdctl
+
+# this won't be correct after changing uid
+unset HOME
+
+export APACHE_LOCK_DIR=/var/lock/httpd
+export APACHE_LOG_DIR=/var/log/httpd
+export APACHE_PID_FILE=/var/run/httpd/httpd.pid
+export APACHE_RUN_DIR=/var/run/httpd
+export APACHE_RUN_GROUP=vagrant
+export APACHE_RUN_USER=vagrant
+export LANG=C
