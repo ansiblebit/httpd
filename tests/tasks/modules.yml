@@ -23,6 +23,8 @@
   with_items:
     - etc/httpd/mods-enabled/mpm_event.load
     - etc/httpd/mods-enabled/mpm_event.conf
+    - etc/httpd/mods-enabled/setenvif.load
+    - etc/httpd/mods-enabled/setenvif.conf
     - etc/httpd/mods-enabled/status.load
     - etc/httpd/mods-enabled/status.conf
   changed_when: no
@@ -33,6 +35,8 @@
   with_items:
     - etc/httpd/mods-enabled/mpm_event.load
     - etc/httpd/mods-enabled/mpm_event.conf
+    - etc/httpd/mods-enabled/setenvif.load
+    - etc/httpd/mods-enabled/setenvif.conf
     - etc/httpd/mods-enabled/status.load
     - etc/httpd/mods-enabled/status.conf
   changed_when: no
