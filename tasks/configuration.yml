@@ -4,25 +4,25 @@
 # configuration tasks.
 #
 
-- name: configuration | setup /usr/local/apache2 directory link
+- name: configuration | setup /usr/local/httpd directory link
   file:
-    src="/usr/local/apache2-{{ apache_version }}"
-    path=/usr/local/apache2
+    src="/usr/local/httpd-{{ httpd_version }}"
+    path=/usr/local/httpd
     state=link
   become: yes
 
 - name: configuration | setup modules directory link
   file:
-    src=/usr/local/apache2/modules
-    path="{{ apache_dir_modules }}"
+    src=/usr/local/httpd/modules
+    path="{{ httpd_dir_modules }}"
     state=link
   become: yes
 
 - name: configuration | setup configuration directories
   file:
-    path="{{ apache_dir_configuration }}{{ item }}"
-    owner="{{ apache_user.name }}"
-    group="{{ apache_user.name }}"
+    path="{{ httpd_dir_configuration }}{{ item }}"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
     mode=0750
     state=directory
   become: yes
@@ -36,8 +36,8 @@
 
 - name: configuration | service default
   template:
-    src=etc/default/apache2.j2
-    dest=/etc/default/apache2
+    src=etc/default/httpd.j2
+    dest=/etc/default/httpd
     owner=root
     group=root
     mode=0644
@@ -45,8 +45,8 @@
 
 - name: configuration | service environment variables
   template:
-    src=etc/apache2/envvars.j2
-    dest=/etc/apache2/envvars
+    src=etc/httpd/envvars.j2
+    dest=/etc/httpd/envvars
     owner=root
     group=root
     mode=0644

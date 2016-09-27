@@ -4,22 +4,22 @@
 # defaults file
 #
 
-apache_build_dependencies:
+httpd_build_dependencies:
   - gcc
   - libapr1-dev
   - libaprutil1-dev
   - libpcre3-dev
 
-apache_dir: /usr/local/apache2
-apache_dir_cache: /var/cache/apache2
-apache_dir_configuration: /etc/apache2
-apache_dir_lock: /var/lock/apache2
-apache_dir_log: /var/log/apache2
-apache_dir_modules: /usr/lib/apache2
-apache_dir_run: /var/run/apache2
-apache_dir_source: /usr/local/src
+httpd_dir: /usr/local/httpd
+httpd_dir_cache: /var/cache/httpd
+httpd_dir_configuration: /etc/httpd
+httpd_dir_lock: /var/lock/httpd
+httpd_dir_log: /var/log/httpd
+httpd_dir_modules: /usr/lib/httpd
+httpd_dir_run: /var/run/httpd
+httpd_dir_source: /usr/local/src
 
-apache_modules:
+httpd_modules:
   - access_compat
   - actions
   - alias
@@ -125,21 +125,21 @@ apache_modules:
   - vhost_alias
   - xml2enc
 
-apache_modules_enabled: []
+httpd_modules_enabled: []
 
-apache_user:
+httpd_user:
   name: www-data
   home: /var/www-data
   shell: /usr/sbin/nologin
 
-apache_version: 2.4.23
+httpd_version: 2.4.23
 
 
-apache_default: |
+httpd_default: |
   ### htcacheclean settings ###
 
   ## run htcacheclean: yes, no, auto
-  ## auto means run if /etc/apache2/mods-enabled/cache_disk.load exists
+  ## auto means run if /etc/httpd/mods-enabled/cache_disk.load exists
   ## default: auto
   HTCACHECLEAN_RUN=auto
 
@@ -156,25 +156,25 @@ apache_default: |
 
   ## path to cache
   ## must be the same as in CacheRoot directive
-  HTCACHECLEAN_PATH=/var/cache/apache2/mod_cache_disk
+  HTCACHECLEAN_PATH=/var/cache/httpd/mod_cache_disk
 
   ## additional options:
   ## -n : be nice
   ## -t : remove empty directories
   HTCACHECLEAN_OPTIONS="-n"
 
-apache_dir_install: "{{ apache_dir }}-{{ apache_version }}"
-apache_tarball: "httpd-{{ apache_version }}.tar.gz"
+httpd_dir_install: "{{ httpd_dir }}-{{ httpd_version }}"
+httpd_tarball: "httpd-{{ httpd_version }}.tar.gz"
 
-apache_build_options: '--prefix={{ apache_dir_install }}'
-apache_download_url: "http://apache.osuosl.org//httpd/{{ apache_tarball }}"
-apache_download_url_asc: "https://www.apache.org/dist/httpd/{{ apache_tarball }}.asc"
-apache_download_url_md5: "https://www.apache.org/dist/httpd/{{ apache_tarball }}.md5"
-apache_env:
-  APACHE_RUN_USER: "{{ apache_user.name }}"
-  APACHE_RUN_GROUP: "{{ apache_user.name }}"
-  APACHE_PID_FILE: "{{ apache_dir_run }}/apache2.pid"
-  APACHE_RUN_DIR: "{{ apache_dir_run }}"
-  APACHE_LOCK_DIR: "{{ apache_dir_lock }}"
-  APACHE_LOG_DIR: "{{ apache_dir_log }}"
+httpd_build_options: '--prefix={{ httpd_dir_install }}'
+httpd_download_url: "http://apache.osuosl.org//httpd/{{ httpd_tarball }}"
+httpd_download_url_asc: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.asc"
+httpd_download_url_md5: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.md5"
+httpd_env:
+  APACHE_RUN_USER: "{{ httpd_user.name }}"
+  APACHE_RUN_GROUP: "{{ httpd_user.name }}"
+  APACHE_PID_FILE: "{{ httpd_dir_run }}/httpd.pid"
+  APACHE_RUN_DIR: "{{ httpd_dir_run }}"
+  APACHE_LOCK_DIR: "{{ httpd_dir_lock }}"
+  APACHE_LOG_DIR: "{{ httpd_dir_log }}"
   LANG: C

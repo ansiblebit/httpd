@@ -4,12 +4,12 @@
 # module configuration tasks.
 #
 
-- name: modules | setup /usr/local/apache2 directory link
+- name: modules | setup /usr/local/httpd directory link
   template:
-    src=etc/apache2/mods-available/mod.load.j2
-    dest="{{ apache_dir_configuration }}/mods-available/{{ item }}.load"
-    owner="{{ apache_user.name }}"
-    group="{{ apache_user.name }}"
+    src=etc/httpd/mods-available/mod.load.j2
+    dest="{{ httpd_dir_configuration }}/mods-available/{{ item }}.load"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
     mode=0644
-  with_items: "{{ apache_modules }}"
+  with_items: "{{ httpd_modules }}"
   become: yes

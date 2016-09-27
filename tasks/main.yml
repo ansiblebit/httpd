@@ -13,10 +13,10 @@
 
 - name: setup apache account
   user:
-    name="{{ apache_user.name }}"
-    home="{{ apache_user.home }}"
-    shell="{{ apache_user.shell }}"
-    uid="{{ apache_user.uid| default(omit) }}"
+    name="{{ httpd_user.name }}"
+    home="{{ httpd_user.home }}"
+    shell="{{ httpd_user.shell }}"
+    uid="{{ httpd_user.uid| default(omit) }}"
     system=yes
     state=present
   become: yes

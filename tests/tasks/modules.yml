@@ -4,10 +4,10 @@
 # Test tasks to verify modules configuration.
 #
 
-#    - apache_dir_cache
-#    - apache_dir_log
+#    - httpd_dir_cache
+#    - httpd_dir_log
 
 - name: modules | load files are present?
-  command: "test -e {{ apache_dir_configuration }}/mods-available/{{ item }}.load"
-  with_items: "{{ apache_modules }}"
+  command: "test -e {{ httpd_dir_configuration }}/mods-available/{{ item }}.load"
+  with_items: "{{ httpd_modules }}"
   changed_when: no

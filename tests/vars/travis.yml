@@ -4,7 +4,7 @@
 # travis-ci specific variables.
 #
 
-apache_user:
+httpd_user:
   name: travis
   home: /home/travis
   shell: /bin/bash

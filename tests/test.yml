@@ -18,11 +18,11 @@
   vars:
     debug: yes
 
-    apache_default: |
+    httpd_default: |
       ### htcacheclean settings ###
 
       ## run htcacheclean: yes, no, auto
-      ## auto means run if {{ apache_dir_configuration }}/mods-enabled/cache_disk.load exists
+      ## auto means run if {{ httpd_dir_configuration }}/mods-enabled/cache_disk.load exists
       ## default: auto
       HTCACHECLEAN_RUN=auto
 
@@ -39,7 +39,7 @@
 
       ## path to cache
       ## must be the same as in CacheRoot directive
-      HTCACHECLEAN_PATH={{ apache_dir_cache }}/mod_cache_disk
+      HTCACHECLEAN_PATH={{ httpd_dir_cache }}/mod_cache_disk
 
       ## additional options:
       ## -n : be nice
@@ -50,7 +50,7 @@
     - include_vars: "vars/{{ env }}.yml"
 
   roles:
-    - role: apache
+    - role: httpd
 
     - role: tests
       tags: test

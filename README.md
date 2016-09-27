@@ -1,13 +1,13 @@
-# apache
+# httpd
 
-[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg?style=flat)](https://raw.githubusercontent.com/ansiblebit/apache/master/LICENSE)
-[![Build Status](https://travis-ci.org/ansiblebit/apache.svg?branch=master)](https://travis-ci.org/ansiblebit/apache)
+[![License](https://img.shields.io/badge/license-New%20BSD-blue.svg?style=flat)](https://raw.githubusercontent.com/ansiblebit/httpd/master/LICENSE)
+[![Build Status](https://travis-ci.org/ansiblebit/httpd.svg?branch=master)](https://travis-ci.org/ansiblebit/httpd)
 
 [![Platform](http://img.shields.io/badge/platform-ubuntu-dd4814.svg?style=flat)](#)
 
-[![Project Stats](https://www.openhub.net/p/ansiblebit-apache/widgets/project_thin_badge.gif)](https://www.openhub.net/p/ansiblebit-apache/)
+[![Project Stats](https://www.openhub.net/p/ansiblebit-httpd/widgets/project_thin_badge.gif)](https://www.openhub.net/p/ansiblebit-httpd/)
 
-[Ansible][ansible] role to setup [Apache HTTP server][apache].
+[Ansible][ansible] role to setup the [Apache HTTP server][apache].
 
 
 ## Tests
@@ -31,26 +31,26 @@
 ## Role Variables
 
 - **debug**: flag to run debug tasks.
-- **apache_build_dependencies**: list of packages needed to build [apache][apache].
-- **apache_default**: contents of `/etc/default/apache2`.
-- **apache_dir**: symlink to the enabled [apache][apache] installation.
-- **apache_dir_cache**: directory for [apache][apache] cache.
-- **apache2_dir_configuration**: directory for [apache][apache] configuration.
-- **apache_dir_install**: directory where [apache][apache] will be installed.
-- **apache_build_options**: option to be passed to `configure`.
-- **apache_dir_lock**: directory where [apache][apache]....
-- **apache_dir_modules**: directory where [apache][apache] modules are located.
-- **apache_dir_run**: directory where [apache][apache] PID file will be stored.
-- **apache_dir_source**: directory where to build [apache][apache].
-- **apache_env**: [apache][apache] environment variables for init script.
-- **apache_download_url**: the URL for the tarball.
-- **apache_download_url_asc**: the URL for the tarball PGP signature.
-- **apache_download_url_md5**: the URL for the tarball MD5 checksum.
-- **apache_modules**: list of [apache][apache] modules.
-- **apache_modules_enabled**: list of enabled [apache][apache] modules.
-- **apache_tarball**: filename of the tarball.
-- **apache_user**: user under which apache will be running.
-- **apache_version**: the [apache][apache] version to be installed.
+- **httpd_build_dependencies**: list of packages needed to build [apache][apache].
+- **httpd_build_options**: option to be passed to `configure`.
+- **httpd_default**: contents of `/etc/default/httpd`.
+- **httpd_dir**: symlink to the enabled [apache][apache] installation.
+- **httpd_dir_cache**: directory for [apache][apache] cache.
+- **httpd_dir_configuration**: directory for [apache][apache] configuration.
+- **httpd_dir_install**: directory where [apache][apache] will be installed.
+- **httpd_dir_lock**: directory where [apache][apache]....
+- **httpd_dir_modules**: directory where [apache][apache] modules are located.
+- **httpd_dir_run**: directory where [apache][apache] PID file will be stored.
+- **httpd_dir_source**: directory where to build [apache][apache].
+- **httpd_env**: [apache][apache] environment variables for init script.
+- **httpd_download_url**: the URL for the tarball.
+- **httpd_download_url_asc**: the URL for the tarball PGP signature.
+- **httpd_download_url_md5**: the URL for the tarball MD5 checksum.
+- **httpd_modules**: list of [apache][apache] modules.
+- **httpd_modules_enabled**: list of enabled [apache][apache] modules.
+- **httpd_tarball**: filename of the tarball.
+- **httpd_user**: user under which apache will be running.
+- **httpd_version**: the [apache][apache] version to be installed.
 
 
 ## Dependencies

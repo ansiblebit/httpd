@@ -5,7 +5,7 @@
 #
 
 - name: configuration | directory(ies) are present?
-  command: "test -d {{ apache_dir_configuration }}/{{ item }}"
+  command: "test -d {{ httpd_dir_configuration }}/{{ item }}"
   with_items:
     - ''
     - /conf-available
@@ -18,30 +18,30 @@
 
 - name: copy to server expected configuration
   copy:
-    src=files/etc/default/apache2
-    dest=/tmp/etc_default_apache2.expected
-    owner="{{ apache_user.name }}"
-    group="{{ apache_user.name }}"
+    src=files/etc/default/httpd
+    dest=/tmp/etc_default_httpd.expected
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
     mode=0644
   become: yes
   changed_when: no
 
 - name: ensure config was generated as expected
-  command: diff -q -w /etc/default/apache2 /tmp/etc_default_apache2.expected
+  command: diff -q -w /etc/default/httpd /tmp/etc_default_httpd.expected
   become: yes
   changed_when: no
 
 - name: copy to server expected envvars file
   copy:
-    src=files/etc/apache2/envvars
-    dest=/tmp/etc_apache2_envvars.expected
-    owner="{{ apache_user.name }}"
-    group="{{ apache_user.name }}"
+    src=files/etc/httpd/envvars
+    dest=/tmp/etc_httpd_envvars.expected
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
     mode=0644
   become: yes
   changed_when: no
 
 - name: ensure config was generated as expected
-  command: diff -q -w /etc/apache2/envvars /tmp/etc_apache2_envvars.expected
+  command: diff -q -w /etc/httpd/envvars /tmp/etc_httpd_envvars.expected
   become: yes
   changed_when: no

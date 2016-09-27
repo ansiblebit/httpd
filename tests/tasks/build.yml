@@ -8,26 +8,26 @@
   command: "dpkg-query -W -f='${Status}\n' {{ item }}"
   register: test
   failed_when: test.stdout.find('install ok installed') == -1
-  with_items: "{{ apache_build_dependencies }}"
+  with_items: "{{ httpd_build_dependencies }}"
   changed_when: no
 
 - name: build | file(s) are present?
   command: "test -e {{ item }}"
   with_items:
-    - "{{ apache_dir_source }}/{{ apache_tarball }}"
-    - "{{ apache_dir_source }}/{{ apache_tarball }}.md5"
+    - "{{ httpd_dir_source }}/{{ httpd_tarball }}"
+    - "{{ httpd_dir_source }}/{{ httpd_tarball }}.md5"
   changed_when: no
 
 - name: build | directory(ies) are present?
-  command: "test -d {{ apache_dir_source }}/{{ item }}"
+  command: "test -d {{ httpd_dir_source }}/{{ item }}"
   with_items:
     - ''
-    - "httpd-{{ apache_version }}"
+    - "httpd-{{ httpd_version }}"
   changed_when: no
 
 - name: build | symlink(s) are present?
   command: "test -h {{ item }}"
   with_items:
-    - "{{ apache_dir }}"
-    - "{{ apache_dir_modules }}"
+    - "{{ httpd_dir }}"
+    - "{{ httpd_dir_modules }}"
   changed_when: no

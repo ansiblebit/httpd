@@ -4,7 +4,7 @@
 # vagrant specific variables.
 #
 
-apache_user:
+httpd_user:
   name: vagrant
   home: /home/vagrant
   shell: /bin/bash
