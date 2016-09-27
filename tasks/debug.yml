@@ -25,5 +25,6 @@
     - httpd_env
     - httpd_modules
     - httpd_modules_enabled
+    - httpd_ports
     - httpd_user.name
     - httpd_version

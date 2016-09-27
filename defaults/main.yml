@@ -127,6 +127,9 @@ httpd_modules:
 
 httpd_modules_enabled: []
 
+httpd_ports:
+  - 80
+
 httpd_user:
   name: www-data
   home: /var/www-data
