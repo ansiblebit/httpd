@@ -10,6 +10,9 @@ httpd_build_dependencies:
   - libaprutil1-dev
   - libpcre3-dev
 
+httpd_build_options:
+  - '--with-mpm=worker'
+
 httpd_configuration: |
   ServerSignature Off
   ServerTokens Prod
@@ -214,22 +217,15 @@ httpd_modules:
   - xml2enc
 
 httpd_modules_enabled:
-  - name: mpm_event
+  - name: mpm_worker
     enabled: yes
     configuration: |
-      # StartServers: initial number of server processes to start
-      StartServers			 2
-      # MinSpareThreads: minimum number of worker threads which are kept spare
-      MinSpareThreads		 25
-      # MaxSpareThreads: maximum number of worker threads which are kept spare
-      MaxSpareThreads		 75
-      ThreadLimit			 64
-      # ThreadsPerChild: constant number of worker threads in each server process
-      ThreadsPerChild		 25
-      # MaxRequestWorkers: maximum number of worker threads
-      MaxRequestWorkers	  150
-      # MaxConnectionsPerChild: maximum number of requests a server process serves
-      MaxConnectionsPerChild   0
+      ServerLimit         16
+      StartServers         2
+      MaxRequestWorkers  150
+      MinSpareThreads     25
+      MaxSpareThreads     75
+      ThreadsPerChild     25
   - name: status
     enabled: yes
     configuration: |
