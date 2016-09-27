@@ -14,7 +14,7 @@ apache_dir: /usr/local/apache2
 apache_dir_cache: /var/cache/apache2
 apache_dir_configuration: /etc/apache2
 apache_dir_log: /var/log/apache2
-apache_dir_modules: /usr/lib/apache2/modules
+apache_dir_modules: /usr/lib/apache2
 apache_dir_source: /usr/local/src
 
 apache_modules:
