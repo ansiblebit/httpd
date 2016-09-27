@@ -18,6 +18,9 @@
   vars:
     debug: yes
 
+    httpd_build_options:
+      - '--with-mpm=event'
+
     httpd_default: |
       ### htcacheclean settings ###
 
