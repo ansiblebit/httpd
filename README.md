@@ -33,6 +33,7 @@
 - **debug**: flag to run debug tasks.
 - **httpd_build_dependencies**: list of packages needed to build [apache][apache].
 - **httpd_build_options**: option to be passed to `configure`.
+- **httpd_configuration**: contents of the `/etc/httpd/httpd.conf` file.
 - **httpd_default**: contents of `/etc/default/httpd`.
 - **httpd_dir**: symlink to the enabled [apache][apache] installation.
 - **httpd_dir_cache**: directory for [apache][apache] cache.

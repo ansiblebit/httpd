@@ -38,8 +38,19 @@
   template:
     src=etc/default/httpd.j2
     dest=/etc/default/httpd
-    owner=root
-    group=root
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+
+    mode=0644
+  become: yes
+
+- name: configuration | /etc/httpd/httpd.conf
+  template:
+    src=etc/httpd/httpd.conf.j2
+    dest=/etc/httpd/httpd.conf
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+
     mode=0644
   become: yes
 
@@ -47,8 +58,9 @@
   template:
     src=etc/httpd/envvars.j2
     dest=/etc/httpd/envvars
-    owner=root
-    group=root
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+
     mode=0644
   become: yes
 
@@ -56,7 +68,8 @@
   template:
     src=etc/httpd/ports.conf.j2
     dest=/etc/httpd/ports.conf
-    owner=root
-    group=root
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+
     mode=0644
   become: yes

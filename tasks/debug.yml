@@ -10,6 +10,7 @@
   with_items:
     - httpd_build_dependencies
     - httpd_build_options
+    - httpd_configuration
     - httpd_default
     - httpd_dir
     - httpd_dir_cache
