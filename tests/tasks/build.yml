@@ -29,5 +29,5 @@
   command: "test -h {{ item }}"
   with_items:
     - "{{ httpd_dir }}"
-    - "{{ httpd_dir_modules }}"
+    - "{{ httpd_dir_lib }}"
   changed_when: no

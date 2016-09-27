@@ -38,8 +38,8 @@
 - **httpd_dir_cache**: directory for [apache][apache] cache.
 - **httpd_dir_configuration**: directory for [apache][apache] configuration.
 - **httpd_dir_install**: directory where [apache][apache] will be installed.
+- **httpd_dir_lib**: directory where [apache][apache] modules are located.
 - **httpd_dir_lock**: directory where [apache][apache]....
-- **httpd_dir_modules**: directory where [apache][apache] modules are located.
 - **httpd_dir_run**: directory where [apache][apache] PID file will be stored.
 - **httpd_dir_source**: directory where to build [apache][apache].
 - **httpd_env**: [apache][apache] environment variables for init script.

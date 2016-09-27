@@ -16,7 +16,7 @@
     - httpd_dir_configuration
     - httpd_dir_install
     - httpd_dir_lock
-    - httpd_dir_modules
+    - httpd_dir_lib
     - httpd_dir_run
     - httpd_dir_source
     - httpd_download_url

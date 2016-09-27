@@ -14,7 +14,7 @@
 - name: configuration | setup modules directory link
   file:
     src=/usr/local/httpd/modules
-    path="{{ httpd_dir_modules }}"
+    path="{{ httpd_dir_lib }}"
     state=link
   become: yes
 
