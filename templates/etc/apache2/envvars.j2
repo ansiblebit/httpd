@@ -6,7 +6,7 @@
 unset HOME
 
 {%  if apache_env is defined %}
-{%      for key, value in apache_env.iteritems() %}
+{%      for key, value in apache_env.iteritems() | sort %}
 export {{ key }}={{ value }}
 {%      endfor %}
 {%  endif %}
