@@ -1,0 +1,10 @@
+---
+# file: apache/tests/vars/travis.yml
+#
+# travis-ci specific variables.
+#
+
+apache_user:
+  name: travis
+  home: /home/travis
+  shell: /bin/bash

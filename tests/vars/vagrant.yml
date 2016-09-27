@@ -1,0 +1,10 @@
+---
+# file: apache/tests/vars/vagrant.yml
+#
+# vagrant specific variables.
+#
+
+apache_user:
+  name: vagrant
+  home: /home/vagrant
+  shell: /bin/bash

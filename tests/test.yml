@@ -18,11 +18,6 @@
   vars:
     debug: yes
 
-    apache_user:
-      name: vagrant
-      home: /home/vagrant
-      shell: /bin/bash
-
     apache_default: |
       ### htcacheclean settings ###
 
@@ -51,6 +46,8 @@
       ## -t : remove empty directories
       HTCACHECLEAN_OPTIONS="-n"
 
+  pre_tasks:
+    - include_vars: "vars/{{ env }}.yml"
 
   roles:
     - role: apache
