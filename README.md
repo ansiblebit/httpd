@@ -38,8 +38,11 @@
 - **apache2_dir_configuration**: directory for [apache][apache] configuration.
 - **apache_dir_install**: directory where [apache][apache] will be installed.
 - **apache_build_options**: option to be passed to `configure`.
+- **apache_dir_lock**: directory where [apache][apache]....
 - **apache_dir_modules**: directory where [apache][apache] modules are located.
+- **apache_dir_run**: directory where [apache][apache] PID file will be stored.
 - **apache_dir_source**: directory where to build [apache][apache].
+- **apache_env**: [apache][apache] environment variables for init script.
 - **apache_download_url**: the URL for the tarball.
 - **apache_download_url_asc**: the URL for the tarball PGP signature.
 - **apache_download_url_md5**: the URL for the tarball MD5 checksum.
