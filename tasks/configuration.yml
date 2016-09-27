@@ -40,7 +40,6 @@
     dest=/etc/default/httpd
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
-
     mode=0644
   become: yes
 
@@ -50,7 +49,6 @@
     dest=/etc/httpd/httpd.conf
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
-
     mode=0644
   become: yes
 
@@ -60,7 +58,6 @@
     dest=/etc/httpd/envvars
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
-
     mode=0644
   become: yes
 
@@ -70,6 +67,14 @@
     dest=/etc/httpd/ports.conf
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
-
     mode=0644
+  become: yes
+
+- name: configuration | /etc/init.d/httpd
+  template:
+    src=etc/init.d/httpd.j2
+    dest=/etc/init.d/httpd
+    owner=root
+    group=root
+    mode=0755
   become: yes
