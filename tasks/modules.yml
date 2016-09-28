@@ -12,7 +12,6 @@
     group="{{ httpd_user.name }}"
     mode=0644
   with_items: "{{ httpd_modules }}"
-  when: "{{  }}"
   become: yes
 
 - name: modules | enable modules
