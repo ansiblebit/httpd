@@ -23,6 +23,15 @@
       - "--prefix={{ httpd_dir_install }}"
 
     httpd_default: |
+      APACHE_RUN_USER={{ httpd_user.name }}
+      APACHE_RUN_GROUP={{ httpd_user.name }}
+      APACHE_PID_FILE={{ httpd_dir_run }}/httpd.pid
+      APACHE_RUN_DIR={{ httpd_dir_run }}
+      APACHE_LOCK_DIR={{ httpd_dir_lock }}
+      APACHE_LOG_DIR={{ httpd_dir_log }}
+      LANG=C
+
+
       ### htcacheclean settings ###
 
       ## run htcacheclean: yes, no, auto
