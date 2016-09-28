@@ -38,14 +38,19 @@
     - /sites-enabled
   notify: restart httpd
 
-- name: configuration | setup log directory
+- name: configuration | setup other directories
   file:
-    path="{{ httpd_dir_log }}"
+    path="{{ item }}"
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0755
     state=directory
   become: yes
+  with_items:
+    - "{{ httpd_dir_cache }}"
+    - "{{ httpd_dir_lock }}"
+    - "{{ httpd_dir_log }}"
+    - "{{ httpd_dir_run }}"
 
 - name: configuration | /etc/default/httpd
   template:
@@ -61,16 +66,6 @@
   template:
     src=etc/httpd/httpd.conf.j2
     dest=/etc/httpd/httpd.conf
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
-    mode=0644
-  become: yes
-  notify: restart httpd
-
-- name: configuration | /etc/httpd/envvars
-  template:
-    src=etc/httpd/envvars.j2
-    dest=/etc/httpd/envvars
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644

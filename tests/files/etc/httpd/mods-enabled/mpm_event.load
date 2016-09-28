@@ -1,2 +1,0 @@
-# Ansible managed file, do not edit directly
-LoadModule mpm_event_module /usr/lib/httpd/mod_mpm_event.so

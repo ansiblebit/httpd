@@ -32,7 +32,6 @@
   become: yes
   with_items:
     - etc/default/httpd
-    - etc/httpd/envvars
     - etc/httpd/ports.conf
     - etc/init.d/httpd
   changed_when: no
@@ -42,7 +41,6 @@
   become: yes
   with_items:
     - etc/default/httpd
-    - etc/httpd/envvars
     - etc/httpd/ports.conf
     - etc/init.d/httpd
   changed_when: no

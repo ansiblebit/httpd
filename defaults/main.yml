@@ -251,6 +251,15 @@ httpd_version: 2.4.23
 
 
 httpd_default: |
+  APACHE_RUN_USER={{ httpd_user.name }}
+  APACHE_RUN_GROUP={{ httpd_user.name }}
+  APACHE_PID_FILE={{ httpd_dir_run }}/httpd.pid
+  APACHE_RUN_DIR={{ httpd_dir_run }}
+  APACHE_LOCK_DIR={{ httpd_dir_lock }}
+  APACHE_LOG_DIR={{ httpd_dir_log }}
+  LANG=C
+
+
   ### htcacheclean settings ###
 
   ## run htcacheclean: yes, no, auto
@@ -288,11 +297,3 @@ httpd_build_options:
 httpd_download_url: "http://apache.osuosl.org//httpd/{{ httpd_tarball }}"
 httpd_download_url_asc: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.asc"
 httpd_download_url_md5: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.md5"
-httpd_env:
-  APACHE_RUN_USER: "{{ httpd_user.name }}"
-  APACHE_RUN_GROUP: "{{ httpd_user.name }}"
-  APACHE_PID_FILE: "{{ httpd_dir_run }}/httpd.pid"
-  APACHE_RUN_DIR: "{{ httpd_dir_run }}"
-  APACHE_LOCK_DIR: "{{ httpd_dir_lock }}"
-  APACHE_LOG_DIR: "{{ httpd_dir_log }}"
-  LANG: C
