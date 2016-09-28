@@ -10,9 +10,6 @@ httpd_build_dependencies:
   - libaprutil1-dev
   - libpcre3-dev
 
-httpd_build_options:
-  - '--with-mpm=worker'
-
 httpd_configuration: |
   ServerSignature Off
   ServerTokens Prod
@@ -284,7 +281,10 @@ httpd_default: |
 httpd_dir_install: "{{ httpd_dir }}-{{ httpd_version }}"
 httpd_tarball: "httpd-{{ httpd_version }}.tar.gz"
 
-httpd_build_options: '--prefix={{ httpd_dir_install }}'
+httpd_build_options:
+  - '--with-mpm=worker'
+  - "--prefix={{ httpd_dir_install }}"
+
 httpd_download_url: "http://apache.osuosl.org//httpd/{{ httpd_tarball }}"
 httpd_download_url_asc: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.asc"
 httpd_download_url_md5: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.md5"
