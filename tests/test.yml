@@ -109,6 +109,8 @@
               ProxyStatus On
           </IfModule>
 
+    httpd_force_build: yes
+
   pre_tasks:
     - include_vars: "vars/{{ env }}.yml"
 
