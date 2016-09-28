@@ -37,6 +37,15 @@
     - /sites-enabled
   notify: restart httpd
 
+- name: configuration | setup log directory
+  file:
+    path="{{ httpd_dir_log }}"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0755
+    state=directory
+  become: yes
+
 - name: configuration | /etc/default/httpd
   template:
     src=etc/default/httpd.j2
