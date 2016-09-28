@@ -21,7 +21,14 @@
     state=present
   become: yes
 
+- name: check if apache version is installed
+  command: "test -d {{ httpd_dir_source }}/httpd-{{ httpd_version }}"
+  register: task_apache_installed
+  changed_when: no
+  failed_when: no
+
 - include: build.yml
+  when: httpd_force_build or (task_apache_installed is defined and not task_apache_installed)
   tags: build
 
 - include: configuration.yml

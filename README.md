@@ -44,6 +44,7 @@
 - **httpd_dir_run**: directory where [apache][apache] PID file will be stored.
 - **httpd_dir_source**: directory where to build [apache][apache].
 - **httpd_env**: [apache][apache] environment variables for init script.
+- **httpd_force_build**: flag to indicate if a build is to be triggered no matter the server state.
 - **httpd_download_url**: the URL for the tarball.
 - **httpd_download_url_asc**: the URL for the tarball PGP signature.
 - **httpd_download_url_md5**: the URL for the tarball MD5 checksum.

@@ -25,6 +25,7 @@
     - httpd_download_url_asc
     - httpd_download_url_md5
     - httpd_env
+    - httpd_force_build
     - httpd_modules
     - httpd_modules_enabled
     - httpd_ports

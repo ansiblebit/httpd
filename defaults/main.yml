@@ -110,6 +110,8 @@ httpd_dir_lib: /usr/lib/httpd
 httpd_dir_run: /var/run/httpd
 httpd_dir_source: /usr/local/src
 
+httpd_force_build: no
+
 httpd_modules:
   - access_compat
   - actions
