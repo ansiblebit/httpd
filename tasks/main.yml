@@ -28,7 +28,7 @@
   failed_when: no
 
 - include: build.yml
-  when: httpd_force_build or (task_apache_installed is defined and not task_apache_installed)
+  when: httpd_force_build or (task_apache_installed is defined and not task_apache_installed.rc == 0)
   tags: build
 
 - include: configuration.yml
