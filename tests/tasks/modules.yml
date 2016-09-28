@@ -21,8 +21,6 @@
     mode=0644
   become: yes
   with_items:
-    - etc/httpd/mods-enabled/mpm_event.load
-    - etc/httpd/mods-enabled/mpm_event.conf
     - etc/httpd/mods-enabled/setenvif.load
     - etc/httpd/mods-enabled/setenvif.conf
     - etc/httpd/mods-enabled/status.load
@@ -33,8 +31,6 @@
   command: "diff -q -w /{{ item }} /tmp/{{ item.replace('/', '_') }}.expected"
   become: yes
   with_items:
-    - etc/httpd/mods-enabled/mpm_event.load
-    - etc/httpd/mods-enabled/mpm_event.conf
     - etc/httpd/mods-enabled/setenvif.load
     - etc/httpd/mods-enabled/setenvif.conf
     - etc/httpd/mods-enabled/status.load

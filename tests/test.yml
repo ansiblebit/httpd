@@ -67,6 +67,7 @@
           MaxRequestWorkers	  150
           # MaxConnectionsPerChild: maximum number of requests a server process serves
           MaxConnectionsPerChild   0
+        dynamic: no
       - name: setenvif
         enabled: yes
         configuration: |
