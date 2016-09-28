@@ -20,6 +20,7 @@
 
     httpd_build_options:
       - '--with-mpm=event'
+      - "--prefix={{ httpd_dir_install }}"
 
     httpd_default: |
       ### htcacheclean settings ###
