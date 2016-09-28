@@ -16,6 +16,11 @@
   become: yes
   changed_when: no
 
+- name: configuration | logging directory is present?
+  command: "test -d {{ httpd_dir_log }}"
+  become: yes
+  changed_when: no
+
 - name: copy to server expected configuration
   copy:
     src="files/{{ item }}"
