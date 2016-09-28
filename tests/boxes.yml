@@ -17,7 +17,7 @@ vagrant:
     provider:
       virtualbox:
         memory: 1024
-        cpus: 1
+        cpus: 2
 
   wheezy64.vagrant.dev:
     enabled: true
@@ -29,7 +29,7 @@ vagrant:
     provider:
       virtualbox:
         memory: 1024
-        cpus: 1
+        cpus: 2
 
 
   # Ubuntu
@@ -56,7 +56,7 @@ vagrant:
     provider:
       virtualbox:
         memory: 1024
-        cpus: 1
+        cpus: 2
 
   vivid64.vagrant.dev:
     enabled: true
@@ -68,7 +68,7 @@ vagrant:
     provider:
       virtualbox:
         memory: 1024
-        cpus: 1
+        cpus: 2
 
   wily64.vagrant.dev:
     enabled: true
@@ -80,7 +80,7 @@ vagrant:
     provider:
       virtualbox:
         memory: 1024
-        cpus: 1
+        cpus: 2
 
   xenial64.vagrant.dev:
     enabled: true
@@ -92,7 +92,7 @@ vagrant:
     provider:
       virtualbox:
         memory: 1024
-        cpus: 1
+        cpus: 2
 
   yakkety64.vagrant.dev:
     enabled: true
@@ -104,4 +104,4 @@ vagrant:
     provider:
       virtualbox:
         memory: 1024
-        cpus: 1
+        cpus: 2
