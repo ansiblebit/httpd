@@ -1,6 +1,6 @@
 # Ansible managed file, do not edit directly
 
-# envvars - default environment variables for httpdctl
+# envvars - default environment variables for apachectl
 
 # this won't be correct after changing uid
 unset HOME
