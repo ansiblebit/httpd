@@ -46,25 +46,25 @@
     copy=no
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
-  when: task_httpd_download.changed
+  when: task_httpd_download.changed or httpd_force_build
   become: yes
 
 - name: build | configure
   command: "./configure {{ ' '.join(httpd_build_options) }}"
   args:
     chdir: "{{ httpd_dir_source }}/httpd-{{ httpd_version }}"
-  when: task_httpd_download.changed
+  when: task_httpd_download.changed or httpd_force_build
 
 - name: build | build
   command: make
   args:
     chdir: "{{ httpd_dir_source }}/httpd-{{ httpd_version }}"
-  when: task_httpd_download.changed
+  when: task_httpd_download.changed or httpd_force_build
 
 - name: build | install
   command: make install
   args:
     chdir: "{{ httpd_dir_source }}/httpd-{{ httpd_version }}"
   become: yes
-  when: task_httpd_download.changed
+  when: task_httpd_download.changed or httpd_force_build
   notify: start httpd
