@@ -9,6 +9,7 @@
   with_items:
     - ''
     - /conf-available
+    - /conf-enabled
     - /mods-available
     - /mods-enabled
     - /sites-available
