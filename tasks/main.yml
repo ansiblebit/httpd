@@ -4,8 +4,25 @@
 # tasks file
 #
 
+## include OS family specific variables
+
+- name: include OS family/distribution specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution | lower }}-{{ ansible_distribution_version | lower }}.yml"
+    - "{{ ansible_distribution | lower }}.yml"
+    - "{{ ansible_os_family | lower }}.yml"
+
+
+## include installation method variables
+
+- include_vars: "{{ httpd_installation }}.yml"
+
+
+## install
+
 - include: build/main.yml
   when: httpd_installation == 'build'
 
 - include: package/main.yml
-  when: httpd_installation != 'build'
+  when: not httpd_installation == 'build'
