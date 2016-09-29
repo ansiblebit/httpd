@@ -11,41 +11,60 @@
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644
-  with_items: "{{ httpd_modules }}"
+  with_items: "{{ httpd_modules_dynamic }}"
   become: yes
 
-- name: modules | enable modules
+- name: modules | enable dynamic modules
   file:
     src="/etc/httpd/mods-available/{{ item.name }}.load"
     dest="/etc/httpd/mods-enabled/{{ item.name }}.load"
     state=link
-  with_items: "{{ httpd_modules_enabled }}"
-  when: "{{ item.enabled and item.dynamic|default(true) }}"
+  with_items: "{{ httpd_modules_dynamic }}"
+  when: "{{ item.enabled }}"
   become: yes
 
-- name: modules | disable modules (.load)
-  file:
-    path="/etc/httpd/mods-enabled/{{ item.name }}.load"
-    state=absent
-  with_items: "{{ httpd_modules_enabled }}"
-  when: "{{ not item.enabled }}"
-  become: yes
-
-- name: modules | disable modules (.conf)
-  file:
-    path="/etc/httpd/mods-enabled/{{ item.name }}.conf"
-    state=absent
-  with_items: "{{ httpd_modules_enabled }}"
-  when: "{{ not item.enabled }}"
-  become: yes
-
-- name: modules | setup enabled modules
+- name: modules | setup dynamic modules configuration
   template:
     src=etc/httpd/mods-enabled/mod.conf.j2
     dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644
-  with_items: "{{ httpd_modules_enabled }}"
+  with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ item.enabled }}"
+  become: yes
+
+- name: modules | setup static modules configuration
+  template:
+    src=etc/httpd/mods-enabled/mod.conf.j2
+    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  with_items: "{{ httpd_modules_static }}"
+  when: "{{ item.enabled }}"
+  become: yes
+
+- name: modules | disable dynamic modules
+  file:
+    path="/etc/httpd/mods-enabled/{{ item.name }}.load"
+    state=absent
+  with_items: "{{ httpd_modules_dynamic }}"
+  when: "{{ not item.enabled }}"
+  become: yes
+
+- name: modules | remove dynamic modules configuration
+  file:
+    path="/etc/httpd/mods-enabled/{{ item.name }}.conf"
+    state=absent
+  with_items: "{{ httpd_modules_dynamic }}"
+  when: "{{ not item.enabled }}"
+  become: yes
+
+- name: modules | remove static modules configuration
+  file:
+    path="/etc/httpd/mods-enabled/{{ item.name }}.conf"
+    state=absent
+  with_items: "{{ httpd_modules_static }}"
+  when: "{{ not item.enabled }}"
   become: yes
