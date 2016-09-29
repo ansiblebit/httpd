@@ -237,6 +237,8 @@ httpd_configuration_envvars: |
   #export APACHE2_MAINTSCRIPT_DEBUG=1
 
 httpd_modules_dynamic:
+  - name: access_compat
+    enabled: yes
   - name: alias
     enabled: yes
     configuration: |
@@ -259,6 +261,18 @@ httpd_modules_dynamic:
           AllowOverride None
           Require all granted
       </Directory>
+  - name: auth_basic
+    enabled: yes
+  - name: authn_core
+    enabled: yes
+  - name: authn_file
+    enabled: yes
+  - name: authz_core
+    enabled: yes
+  - name: authz_host
+    enabled: yes
+  - name: authz_user
+    enabled: yes
   - name: autoindex
     enabled: yes
     configuration: |
@@ -370,6 +384,10 @@ httpd_modules_dynamic:
     enabled: yes
     configuration: |
       DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm
+  - name: env
+    enabled: yes
+  - name: filter
+    enabled: yes
   - name: mime
     enabled: yes
     configuration: |
