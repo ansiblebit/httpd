@@ -3,3 +3,33 @@
 #
 # package configuration tasks.
 #
+
+- name: build | configuration | /etc/default/httpd
+  template:
+    src=etc/default/httpd.j2
+    dest="/etc/default/{{ httpd_service }}"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  become: yes
+  notify: restart httpd
+
+- name: build | configuration | /etc/httpd/httpd.conf
+  template:
+    src=etc/httpd/httpd.conf.j2
+    dest="{{ httpd_dir_configuration }}/httpd.conf"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  become: yes
+  notify: restart httpd
+
+- name: build | configuration | /etc/httpd/ports.conf
+  template:
+    src=etc/httpd/ports.conf.j2
+    dest="{{ httpd_dir_configuration }}/ports.conf"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  become: yes
+  notify: restart httpd
