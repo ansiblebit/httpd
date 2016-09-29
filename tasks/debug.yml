@@ -20,6 +20,7 @@
     - httpd_dir_lib
     - httpd_dir_run
     - httpd_dir_source
+    - httpd_environment
     - httpd_download_url
     - httpd_download_url_asc
     - httpd_download_url_md5

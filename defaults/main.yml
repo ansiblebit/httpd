@@ -288,13 +288,24 @@ httpd_default: |
   HTCACHECLEAN_OPTIONS="-n"
 
 httpd_dir_install: "{{ httpd_dir }}-{{ httpd_version }}"
+
+httpd_environment:
+  unset HOME
+
+  export APACHE_RUN_USER='{{ httpd_user.name }}'
+  export APACHE_RUN_GROUP='{{ httpd_user.name }}'
+  export APACHE_PID_FILE='{{ httpd_pid_file }}'
+  export APACHE_RUN_DIR='{{ httpd_dir_run }}'
+  export APACHE_LOCK_DIR='{{ httpd_dir_lock }}'
+  export APACHE_LOG_DIR='{{ httpd_dir_log }}'
+
 httpd_tarball: "httpd-{{ httpd_version }}.tar.gz"
 
 
 httpd_build_options:
-  - '--with-mpm=worker'
+  - "--with-mpm={{ httpd_mpm_module }}"
   - "--prefix={{ httpd_dir_install }}"
-  - "--enable-mods-static='authz_core core so http log_config logio unixd'"
+  - "--enable-mods-static='{{ httpd_modules_static|map(attribute='name') }}'"
 
 httpd_download_url: "http://apache.osuosl.org//httpd/{{ httpd_tarball }}"
 httpd_download_url_asc: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.asc"
