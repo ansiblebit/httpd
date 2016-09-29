@@ -58,7 +58,7 @@
     path="{{ httpd_dir_configuration }}/mods-enabled/{{ item.order | default('001') }}-{{ item.name }}.conf"
     state=absent
   with_items: "{{ httpd_modules_dynamic }}"
-  when: "{{ not item.enabled }}"
+  when: "{{ item.enabled defined and not item.enabled }}"
   become: yes
 
 - name: modules | remove static modules configuration
@@ -66,5 +66,5 @@
     path="{{ httpd_dir_configuration }}/mods-enabled/{{ item.order | default('000') }}-{{ item.name }}.conf"
     state=absent
   with_items: "{{ httpd_modules_static }}"
-  when: "{{ not item.enabled }}"
+  when: "{{ item.enabled defined and not item.enabled }}"
   become: yes
