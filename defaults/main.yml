@@ -154,7 +154,7 @@ httpd_modules_static:
       LogFormat "%{User-agent}i" agent
   - name: logio
     enabled: yes
-  - name: mod_authz_core
+  - name: authz_core
     enabled: yes
   - name: mpm_worker
     enabled: yes
