@@ -18,11 +18,6 @@
   vars:
     debug: yes
 
-    httpd_build_options:
-      - '--with-mpm=worker'
-      - "--prefix={{ httpd_dir_install }}"
-      - "--enable-mods-static='authz_core core so http log_config logio unixd'"
-
     httpd_default: |
       ### htcacheclean settings ###
 
@@ -51,24 +46,7 @@
       ## -t : remove empty directories
       HTCACHECLEAN_OPTIONS="-n"
 
-    httpd_modules_enabled:
-      - name: mpm_event
-        enabled: yes
-        configuration: |
-          # StartServers: initial number of server processes to start
-          StartServers			 2
-          # MinSpareThreads: minimum number of worker threads which are kept spare
-          MinSpareThreads		 25
-          # MaxSpareThreads: maximum number of worker threads which are kept spare
-          MaxSpareThreads		 75
-          ThreadLimit			 64
-          # ThreadsPerChild: constant number of worker threads in each server process
-          ThreadsPerChild		 25
-          # MaxRequestWorkers: maximum number of worker threads
-          MaxRequestWorkers	  150
-          # MaxConnectionsPerChild: maximum number of requests a server process serves
-          MaxConnectionsPerChild   0
-        dynamic: no
+    httpd_modules_dynamic:
       - name: setenvif
         enabled: yes
         configuration: |
@@ -98,21 +76,8 @@
           BrowserMatch "^XML Spy" redirect-carefully
           BrowserMatch "^Dreamweaver-WebDAV-SCM1" redirect-carefully
           BrowserMatch " Konqueror/4" redirect-carefully
-      - name: status
-        enabled: yes
-        configuration: |
-          <Location /httpd-status>
-              SetHandler server-status
-              Require ip 127.0.0.1/32
-          </Location>
 
-          ExtendedStatus On
-
-          <IfModule mod_proxy.c>
-              ProxyStatus On
-          </IfModule>
-
-    httpd_force_build: yes
+    httpd_force_build: no
 
   pre_tasks:
     - include_vars: "vars/{{ env }}.yml"
