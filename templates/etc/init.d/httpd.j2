@@ -17,53 +17,23 @@
 
 DESC="web server"
 NAME=httpd
-DAEMON=/usr/sbin/$NAME
+DAEMON={{ httpd_dir }}/bin/apachectl
 
 SCRIPTNAME="${0##*/}"
 SCRIPTNAME="${SCRIPTNAME##[KS][0-9][0-9]}"
-if [ -n "$APACHE_CONFDIR" ] ; then
-	if [ "${APACHE_CONFDIR##/etc/httpd-}" != "${APACHE_CONFDIR}" ] ; then
-	        DIR_SUFFIX="${APACHE_CONFDIR##/etc/httpd-}"
-	else
-	        DIR_SUFFIX=
-	fi
-elif [ "${SCRIPTNAME##httpd-}" != "$SCRIPTNAME" ] ; then
-	DIR_SUFFIX="-${SCRIPTNAME##httpd-}"
-	APACHE_CONFDIR=/etc/httpd$DIR_SUFFIX
-else
-	DIR_SUFFIX=
-	APACHE_CONFDIR={{ httpd_dir_configuration }}
-fi
-if [ -z "$APACHE_ENVVARS" ] ; then
-	APACHE_ENVVARS=$APACHE_CONFDIR/envvars
-fi
-export APACHE_CONFDIR APACHE_ENVVARS
-
-ENV="env -i LANG=C PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-if [ "$APACHE_CONFDIR" != /etc/httpd ] ; then
-	ENV="$ENV APACHE_CONFDIR=$APACHE_CONFDIR"
-fi
-if [ "$APACHE_ENVVARS" != "$APACHE_CONFDIR/envvars" ] ; then
-	ENV="$ENV APACHE_ENVVARS=$APACHE_ENVVARS"
-fi
-
 
 #edit /etc/default/httpd to change this.
 HTCACHECLEAN_RUN=auto
 HTCACHECLEAN_MODE=daemon
 HTCACHECLEAN_SIZE=300M
 HTCACHECLEAN_DAEMON_INTERVAL=120
-HTCACHECLEAN_PATH=/var/cache/httpd$DIR_SUFFIX/mod_cache_disk
+HTCACHECLEAN_PATH={{ httpd_dir_cache }}/mod_cache_disk
 HTCACHECLEAN_OPTIONS=""
 
 # Read configuration variable file if it is present
-if [ -f /etc/default/httpd$DIR_SUFFIX ] ; then
-	. /etc/default/httpd$DIR_SUFFIX
-elif [ -f /etc/default/httpd ] ; then
+if [ -f /etc/default/httpd ] ; then
 	. /etc/default/httpd
 fi
-
-PIDFILE=$(. $APACHE_ENVVARS && echo $APACHE_PID_FILE)
 
 VERBOSE=no
 if [ -f /etc/default/rcS ]; then
@@ -73,10 +43,26 @@ fi
 
 
 # Now, set defaults:
-APACHE2CTL="$ENV httpdctl"
-HTCACHECLEAN="$ENV htcacheclean"
-PIDFILE=$(. $APACHE_ENVVARS && echo $APACHE_PID_FILE)
-APACHE2_INIT_MESSAGE=""
+DAEMON_INIT_MESSAGE=''
+
+DAEMON_DIR_CONF={{ httpd_dir_configuration }}
+DAEMON_OPTS="-d ${DAEMON_DIR_CONF} -f ${DAEMON_DIR_CONF}/httpd.conf"
+APACHE_PID_FILE='{{ httpd_pid_file }}'
+APACHECTL='{{ httpd_dir }}/bin/apachectl'
+
+HTCACHECLEAN='{{ httpd_dir }}/bin/htcacheclean'
+
+
+# environment variables
+unset HOME
+
+export APACHE_RUN_USER='{{ httpd_user.name }}'
+export APACHE_RUN_GROUP='{{ httpd_user.name }}'
+export APACHE_PID_FILE='{{ httpd_pid_file }}'
+export APACHE_RUN_DIR='{{ httpd_dir_run }}'
+export APACHE_LOCK_DIR='{{ httpd_dir_lock }}'
+export APACHE_LOG_DIR='{{ httpd_dir_log }}'
+
 
 CONFTEST_OUTFILE=
 cleanup() {
@@ -90,7 +76,7 @@ trap cleanup 0  # "0" means "EXIT", but "EXIT" is not portable
 httpd_conftest() {
 	[ -z "$CONFTEST_OUTFILE" ] || rm -f "$CONFTEST_OUTFILE"
 	CONFTEST_OUTFILE=$(mktemp)
-	if ! $APACHE2CTL configtest > "$CONFTEST_OUTFILE" 2>&1 ; then
+	if ! ${APACHECTL} ${DAEMON_OPTS} -t > "$CONFTEST_OUTFILE" 2>&1 ; then
 		return 1
 	else
 		rm -f "$CONFTEST_OUTFILE"
@@ -102,11 +88,11 @@ httpd_conftest() {
 clear_error_msg() {
 	[ -z "$CONFTEST_OUTFILE" ] || rm -f "$CONFTEST_OUTFILE"
 	CONFTEST_OUTFILE=
-	APACHE2_INIT_MESSAGE=
+	DAEMON_INIT_MESSAGE=
 }
 
 print_error_msg() {
-	[ -z "$APACHE2_INIT_MESSAGE" ] || log_warning_msg "$APACHE2_INIT_MESSAGE"
+	[ -z "$DAEMON_INIT_MESSAGE" ] || log_warning_msg "$DAEMON_INIT_MESSAGE"
 	if [ -n "$CONFTEST_OUTFILE" ] ; then
 		echo "Output of config test was:" >&2
 		cat "$CONFTEST_OUTFILE" >&2
@@ -119,13 +105,13 @@ httpd_wait_start() {
 	local STATUS=$1
 	local i=0
 	while : ; do
-	        PIDTMP=$(pidofproc -p $PIDFILE $DAEMON)
+	        PIDTMP=$(pidofproc -p ${APACHE_PID_FILE} $DAEMON)
 	        if [ -n "${PIDTMP:-}" ] && kill -0 "${PIDTMP:-}" 2> /dev/null; then
 	                return $STATUS
 	        fi
 
 	        if [ $i = "20" ] ; then
-	                APACHE2_INIT_MESSAGE="The httpd$DIR_SUFFIX instance did not start within 20 seconds. Please read the log files to discover problems"
+	                DAEMON_INIT_MESSAGE="The httpd instance did not start within 20 seconds. Please read the log files to discover problems"
 	                return 2
 	        fi
 
@@ -138,7 +124,7 @@ httpd_wait_start() {
 httpd_wait_stop() {
 	local STATUS=$1
 
-	PIDTMP=$(pidofproc -p $PIDFILE $DAEMON)
+	PIDTMP=$(pidofproc -p ${APACHE_PID_FILE} $DAEMON)
 	if [ -n "${PIDTMP:-}" ] && kill -0 "${PIDTMP:-}" 2> /dev/null; then
 	        local i=0
 	        while kill -0 "${PIDTMP:-}" 2> /dev/null;  do
@@ -167,16 +153,16 @@ do_start()
 	#   1 if daemon was already running
 	#   2 if daemon could not be started
 
-	if pidofproc -p $PIDFILE "$DAEMON" > /dev/null 2>&1 ; then
+	if pidofproc -p ${APACHE_PID_FILE} "${DAEMON}" > /dev/null 2>&1 ; then
 	        return 1
 	fi
 
 	if httpd_conftest ; then
-	        $APACHE2CTL start
+	        ${APACHECTL} ${DAEMON_OPTS} start
 	        httpd_wait_start $?
 	        return $?
 	else
-	        APACHE2_INIT_MESSAGE="The httpd$DIR_SUFFIX configtest failed."
+	        DAEMON_INIT_MESSAGE="The httpdconfigtest failed."
 	        return 2
 	fi
 }
@@ -197,8 +183,8 @@ do_stop()
 	# can't use pidofproc from LSB here
 	local AP_RET=0
 
-	if pidof $DAEMON > /dev/null 2>&1 ; then
-	        if [ -e $PIDFILE ] && pidof $DAEMON | tr ' ' '\n' | grep -w $(cat $PIDFILE) > /dev/null 2>&1 ; then
+	if pidof ${DAEMON} > /dev/null 2>&1 ; then
+	        if [ -e ${APACHE_PID_FILE} ] && pidof ${DAEMON} | tr ' ' '\n' | grep -w $(cat ${APACHE_PID_FILE}) > /dev/null 2>&1 ; then
 	                AP_RET=2
 	        else
 	                AP_RET=1
@@ -217,18 +203,18 @@ do_stop()
 	fi
 
 	if [ $AP_RET = 2 ] && httpd_conftest ; then
-	        $APACHE2CTL $STOP > /dev/null 2>&1
+	        ${APACHECTL} ${DAEMON_OPTS} $STOP > /dev/null 2>&1
 	        httpd_wait_stop $?
 	        return $?
 	else
 	        if [ $AP_RET = 2 ]; then
 					clear_error_msg
-	                APACHE2_INIT_MESSAGE="The httpd$DIR_SUFFIX configtest failed, so we are trying to kill it manually. This is almost certainly suboptimal, so please make sure your system is working as you'd expect now!"
-	                killproc -p $PIDFILE $DAEMON
+	                DAEMON_INIT_MESSAGE="The ${DAEMON} configtest failed, so we are trying to kill it manually. This is almost certainly suboptimal, so please make sure your system is working as you'd expect now!"
+	                killproc -p ${APACHE_PID_FILE} $DAEMON
 	                httpd_wait_stop $?
 	                return $?
 	        elif [ $AP_RET = 1 ] ; then
-	                APACHE2_INIT_MESSAGE="There are processes named 'httpd' running which do not match your pid file which are left untouched in the name of safety, Please review the situation by hand".
+	                DAEMON_INIT_MESSAGE="There are processes named 'httpd' running which do not match your pid file which are left untouched in the name of safety, Please review the situation by hand".
 	                return 2
 	        fi
 	fi
@@ -241,14 +227,14 @@ do_stop()
 #
 do_reload() {
 	if httpd_conftest; then
-	        if ! pidofproc -p $PIDFILE "$DAEMON" > /dev/null 2>&1 ; then
-	                APACHE2_INIT_MESSAGE="Apache2 is not running"
+	        if ! pidofproc -p ${APACHE_PID_FILE} "$DAEMON" > /dev/null 2>&1 ; then
+	                DAEMON_INIT_MESSAGE="${DAEMON} is not running"
 	                return 2
 	        fi
-	        $APACHE2CTL graceful > /dev/null 2>&1
+	        ${APACHECTL} ${DAEMON_OPTS} graceful > /dev/null 2>&1
 	        return $?
 	else
-	        APACHE2_INIT_MESSAGE="The httpd$DIR_SUFFIX configtest failed. Not doing anything."
+	        DAEMON_INIT_MESSAGE="The ${DAEMON} configtest failed. Not doing anything."
 	        return 2
 	fi
 }
@@ -260,7 +246,7 @@ check_htcacheclean() {
 
 	MODSDIR=$(. $APACHE_ENVVARS && echo $APACHE_MODS_ENABLED)
 	        [ "$HTCACHECLEAN_RUN"  = "auto" \
-	                -a -e ${MODSDIR:-$APACHE_CONFDIR/mods-enabled}/cache_disk.load ] && \
+	                -a -e ${MODSDIR:-$DAEMON_DIR_CONF/mods-enabled}/cache_disk.load ] && \
 	                return 0
 	return 1
 }
@@ -276,14 +262,14 @@ stop_htcacheclean() {
 
 
 # Sanity checks. They need to occur after function declarations
-[ -x $DAEMON ] || exit 0
+[ -x ${DAEMON} ] || exit 0
 
-if [ ! -x $DAEMON ] ; then
+if [ ! -x ${DAEMON} ] ; then
 	echo "No apache-bin package installed"
 	exit 0
 fi
 
-if [ -z "$PIDFILE" ] ; then
+if [ -z "${APACHE_PID_FILE}" ] ; then
 	echo ERROR: APACHE_PID_FILE needs to be defined in $APACHE_ENVVARS >&2
 	exit 2
 fi
@@ -344,7 +330,7 @@ case "$1" in
 
 	;;
   status)
-	status_of_proc -p $PIDFILE "httpd" "$NAME"
+	status_of_proc -p ${APACHE_PID_FILE} "httpd" "$NAME"
 	exit $?
 	;;
   reload|force-reload|graceful)
