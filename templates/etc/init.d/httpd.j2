@@ -53,8 +53,10 @@ APACHECTL='{{ httpd_dir }}/bin/apachectl'
 HTCACHECLEAN='{{ httpd_dir }}/bin/htcacheclean'
 
 
-# environment variables
-. {{ httpd_dir_configuration }}/env
+# Read environment variables file if it is present
+if [ -f {{ httpd_dir_configuration }}/env ] ; then
+    . {{ httpd_dir_configuration }}/env
+fi
 
 
 CONFTEST_OUTFILE=
