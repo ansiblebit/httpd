@@ -30,8 +30,18 @@
 
 ## Role Variables
 
+- **httpd_configuration**: contents of the `/etc/httpd/httpd.conf` file.
+- **httpd_default**: contents of `/etc/default/httpd`.
+- **httpd_dir_cache**: directory for [apache][apache] cache.
 - **httpd_dir_configuration**: directory for [apache][apache] configuration.
+- **httpd_dir_install**: directory where [apache][apache] will be installed.
+- **httpd_dir_lib**: directory where [apache][apache] modules are located.
+- **httpd_dir_lock**: directory where [apache][apache]....
+- **httpd_dir_run**: directory where [apache][apache] PID file will be stored.
 - **httpd_installation**: the installation method: `build` or `package`.
+- **httpd_modules**: list of [apache][apache] modules.
+- **httpd_modules_dynamic**: list of dynamically linked [apache][apache] modules.
+- **httpd_modules_static**: list of statically linked [apache][apache] modules.
 - **httpd_ports**: list of ports [apache][apache] will be listening to.
 - **httpd_service**: name of the service: `apache2` for package installations; `httpd` otherwise.
 - **httpd_user**: user under which apache will be running.
@@ -52,22 +62,12 @@ Variables specific to the `build` installation process.
 - **debug**: flag to run debug tasks.
 - **httpd_build_dependencies**: list of packages needed to build [apache][apache].
 - **httpd_build_options**: option to be passed to `configure`.
-- **httpd_configuration**: contents of the `/etc/httpd/httpd.conf` file.
-- **httpd_default**: contents of `/etc/default/httpd`.
 - **httpd_dir**: symlink to the enabled [apache][apache] installation.
-- **httpd_dir_cache**: directory for [apache][apache] cache.
-- **httpd_dir_install**: directory where [apache][apache] will be installed.
-- **httpd_dir_lib**: directory where [apache][apache] modules are located.
-- **httpd_dir_lock**: directory where [apache][apache]....
-- **httpd_dir_run**: directory where [apache][apache] PID file will be stored.
 - **httpd_dir_source**: directory where to build [apache][apache].
 - **httpd_force_build**: flag to indicate if a build is to be triggered no matter the server state.
 - **httpd_download_url**: the URL for the tarball.
 - **httpd_download_url_asc**: the URL for the tarball PGP signature.
 - **httpd_download_url_md5**: the URL for the tarball MD5 checksum.
-- **httpd_modules**: list of [apache][apache] modules.
-- **httpd_modules_dynamic**: list of dynamically linked [apache][apache] modules.
-- **httpd_modules_static**: list of statically linked [apache][apache] modules.
 - **httpd_mpm_module**: the mpm [apache][apache] module.
 - **httpd_pid_file**: path to the [apache][apache] PID file.
 - **httpd_tarball**: filename of the tarball.
