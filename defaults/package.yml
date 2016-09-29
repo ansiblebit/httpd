@@ -1,0 +1,7 @@
+---
+# file: apache/defaults/package.yml
+#
+# package installation defaults file
+#
+
+httpd_dir_configuration: /etc/apache2
