@@ -27,8 +27,4 @@
   when: debug | default(false)
   tags: debug
 
-- include: build/main.yml
-  when: httpd_installation == 'build'
-
-- include: package/main.yml
-  when: not httpd_installation == 'build'
+- include: "{{ httpd_installation }}/main.yml"
