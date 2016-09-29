@@ -82,6 +82,16 @@
   become: yes
   notify: restart httpd
 
+- name: configuration | /etc/httpd/env
+  template:
+    src=etc/httpd/env.j2
+    dest=/etc/httpd/env
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  become: yes
+  notify: restart httpd
+
 - name: configuration | /etc/init.d/httpd
   template:
     src=etc/init.d/httpd.j2
