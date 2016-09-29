@@ -216,6 +216,8 @@ httpd_mpm_module: mpm_worker
 httpd_ports:
   - 80
 
+httpd_service: httpd
+
 httpd_user:
   name: www-data
   home: /var/www-data
