@@ -6,18 +6,18 @@
 
 - name: start httpd
   service:
-    name=httpd
+    name="{{ httpd_service }}"
     state=started
   become: yes
 
 - name: stop httpd
   service:
-    name=httpd
+    name="{{ httpd_service }}"
     state=stopped
   become: yes
 
 - name: restart httpd
   service:
-    name=httpd
+    name="{{ httpd_service }}"
     state=restarted
   become: yes
