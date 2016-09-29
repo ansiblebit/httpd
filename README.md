@@ -30,6 +30,7 @@
 
 ## Role Variables
 
+- **httpd_dir_configuration**: directory for [apache][apache] configuration.
 - **httpd_installation**: the installation method: `build` or `package`.
 - **httpd_ports**: list of ports [apache][apache] will be listening to.
 - **httpd_service**: name of the service: `apache2` for package installations; `httpd` otherwise.
@@ -55,7 +56,6 @@ Variables specific to the `build` installation process.
 - **httpd_default**: contents of `/etc/default/httpd`.
 - **httpd_dir**: symlink to the enabled [apache][apache] installation.
 - **httpd_dir_cache**: directory for [apache][apache] cache.
-- **httpd_dir_configuration**: directory for [apache][apache] configuration.
 - **httpd_dir_install**: directory where [apache][apache] will be installed.
 - **httpd_dir_lib**: directory where [apache][apache] modules are located.
 - **httpd_dir_lock**: directory where [apache][apache]....
