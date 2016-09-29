@@ -4,6 +4,17 @@
 # module configuration tasks.
 #
 
+- name: modules | setup static modules configuration
+  template:
+    src=etc/httpd/mods-enabled/mod_static.conf.j2
+    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.order | default('000') }}-{{ item.name }}.conf"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  with_items: "{{ httpd_modules_static }}"
+  when: "{{ item.enabled and item.configuration is defined }}"
+  become: yes
+
 - name: modules | setup /etc/httpd/mods-available .load files
   template:
     src=etc/httpd/mods-available/mod.load.j2
@@ -26,22 +37,11 @@
 - name: modules | setup dynamic modules configuration
   template:
     src=etc/httpd/mods-enabled/mod_dynamic.conf.j2
-    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.order | default('000') }}-{{ item.name }}.conf"
+    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.order | default('001') }}-{{ item.name }}.conf"
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644
   with_items: "{{ httpd_modules_dynamic }}"
-  when: "{{ item.enabled and item.configuration is defined }}"
-  become: yes
-
-- name: modules | setup static modules configuration
-  template:
-    src=etc/httpd/mods-enabled/mod_static.conf.j2
-    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
-    mode=0644
-  with_items: "{{ httpd_modules_static }}"
   when: "{{ item.enabled and item.configuration is defined }}"
   become: yes
 
@@ -55,7 +55,7 @@
 
 - name: modules | remove dynamic modules configuration
   file:
-    path="/etc/httpd/mods-enabled/{{ item.name }}.conf"
+    path="/etc/httpd/mods-enabled/{{ item.order | default('001') }}-{{ item.name }}.conf"
     state=absent
   with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ not item.enabled }}"
@@ -63,7 +63,7 @@
 
 - name: modules | remove static modules configuration
   file:
-    path="/etc/httpd/mods-enabled/{{ item.name }}.conf"
+    path="/etc/httpd/mods-enabled/{{ item.order | default('000') }}-{{ item.name }}.conf"
     state=absent
   with_items: "{{ httpd_modules_static }}"
   when: "{{ not item.enabled }}"
