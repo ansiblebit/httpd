@@ -118,6 +118,8 @@ httpd_user:
   shell: /usr/sbin/nologin
 
 
+httpd_conf: []
+
 httpd_configuration: |
 
   ServerRoot "{{ httpd_dir_configuration }}"
