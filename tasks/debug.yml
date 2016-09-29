@@ -34,5 +34,6 @@
     - httpd_mpm_module
     - httpd_ports
     - httpd_service
+    - httpd_sites
     - httpd_user.name
     - httpd_version

@@ -70,6 +70,7 @@ Variables specific to the `build` installation process.
 - **httpd_download_url_md5**: the URL for the tarball MD5 checksum.
 - **httpd_mpm_module**: the mpm [apache][apache] module.
 - **httpd_pid_file**: path to the [apache][apache] PID file.
+- **httpd_sites**: list of available sites.
 - **httpd_tarball**: filename of the tarball.
 
 

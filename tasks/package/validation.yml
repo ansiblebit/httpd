@@ -22,5 +22,6 @@
     - httpd_installation
     - httpd_modules_dynamic
     - httpd_service
+    - httpd_sites
     - httpd_user
     - httpd_user.name

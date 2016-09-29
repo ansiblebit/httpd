@@ -227,6 +227,8 @@ httpd_environment: |
   export APACHE_LOCK_DIR='{{ httpd_dir_lock }}'
   export APACHE_LOG_DIR='{{ httpd_dir_log }}'
 
+httpd_sites: []
+
 httpd_tarball: "httpd-{{ httpd_version }}.tar.gz"
 
 
