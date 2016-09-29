@@ -17,7 +17,7 @@
 
 DESC="web server"
 NAME=httpd
-DAEMON=/usr/sbin/$NAME
+DAEMON=/usr/local/httpd/bin/apachectl
 
 SCRIPTNAME="${0##*/}"
 SCRIPTNAME="${SCRIPTNAME##[KS][0-9][0-9]}"
@@ -39,7 +39,7 @@ if [ -z "$APACHE_ENVVARS" ] ; then
 fi
 export APACHE_CONFDIR APACHE_ENVVARS
 
-ENV="env -i LANG=C PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV="env -i LANG=C PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/httpd/bin"
 if [ "$APACHE_CONFDIR" != /etc/httpd ] ; then
 	ENV="$ENV APACHE_CONFDIR=$APACHE_CONFDIR"
 fi
