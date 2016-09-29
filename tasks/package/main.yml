@@ -13,3 +13,6 @@
 
 - include: installation.yml
   tags: installation
+
+- include: configuration.yml
+  tags: configuration
