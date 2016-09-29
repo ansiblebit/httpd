@@ -1,0 +1,33 @@
+---
+# file: httpd/tasks/conf.yml
+#
+# conf configuration tasks.
+#
+
+- name: conf | setup conf configuration
+  template:
+    src=etc/httpd/conf-available/conf.conf.j2
+    dest="{{ httpd_dir_configuration }}/conf-available/{{ item.name }}.conf"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  with_items: "{{ httpd_conf }}"
+  when: "{{ item.enabled and item.configuration is defined }}"
+  become: yes
+
+- name: conf | enable conf
+  file:
+    src="{{ httpd_dir_configuration }}/conf-available/{{ item.name }}.load"
+    dest="{{ httpd_dir_configuration }}/conf-enabled/{{ item.name }}.load"
+    state=link
+  with_items: "{{ httpd_conf }}"
+  when: "{{ item.enabled }}"
+  become: yes
+
+- name: conf | disable conf
+  file:
+    path="{{ httpd_dir_configuration }}/conf-enabled/{{ item.name }}.load"
+    state=absent
+  with_items: "{{ httpd_conf }}"
+  when: "{{ not item.enabled }}"
+  become: yes
