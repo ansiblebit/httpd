@@ -314,7 +314,7 @@ httpd_tarball: "httpd-{{ httpd_version }}.tar.gz"
 httpd_build_options:
   - "--with-mpm={{ httpd_mpm_module.replace('mpm_', '') }}"
   - "--prefix={{ httpd_dir_install }}"
-  - "--enable-mods-static='{{ httpd_modules_static|map(attribute='name') }}'"
+  - "--enable-mods-static='{{ ' '.join(httpd_modules_static|map(attribute='name') | list | unique ) }}'"
 
 httpd_download_url: "http://apache.osuosl.org//httpd/{{ httpd_tarball }}"
 httpd_download_url_asc: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.asc"
