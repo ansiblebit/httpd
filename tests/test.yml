@@ -51,6 +51,7 @@
           BrowserMatch " Konqueror/4" redirect-carefully
 
     httpd_force_build: no
+    httpd_version: 2.4.23
 
   pre_tasks:
     - include_vars: "vars/{{ env }}.yml"
