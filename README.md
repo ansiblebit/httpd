@@ -32,6 +32,7 @@
 
 - **httpd_installation**: the installation method: `build` or `package`.
 - **httpd_ports**: list of ports [apache][apache] will be listening to.
+- **httpd_service**: name of the service: `apache2` for package installations; `httpd` otherwise.
 - **httpd_user**: user under which apache will be running.
 - **httpd_version**: the [apache][apache] version to be installed.
 
