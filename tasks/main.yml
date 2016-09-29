@@ -32,3 +32,6 @@
 
 - include: modules.yml
   tags: modules
+
+- include: sites.yml
+  tags: sites

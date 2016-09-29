@@ -1,0 +1,33 @@
+---
+# file: httpd/tasks/sites.yml
+#
+# site configuration tasks.
+#
+
+- name: sites | setup sites configuration
+  template:
+    src=etc/httpd/sites-available/site.conf.j2
+    dest="{{ httpd_dir_configuration }}/sites-available/{{ item.order | default('000') }}-{{ item.name }}.conf"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  with_items: "{{ httpd_sites }}"
+  when: "{{ item.enabled and item.configuration is defined }}"
+  become: yes
+
+- name: sites | enable sites
+  file:
+    src="{{ httpd_dir_configuration }}/sites-available/{{ item.order | default('000') }}-{{ item.name }}.load"
+    dest="{{ httpd_dir_configuration }}/sites-enabled/{{ item.order | default('000') }}-{{ item.name }}.load"
+    state=link
+  with_items: "{{ httpd_sites }}"
+  when: "{{ item.enabled }}"
+  become: yes
+
+- name: sites | disable sites
+  file:
+    path="{{ httpd_dir_configuration }}/sites-enabled/{{ item.order | default('000') }}-{{ item.name }}.load"
+    state=absent
+  with_items: "{{ httpd_sites_dynamic }}"
+  when: "{{ not item.enabled }}"
+  become: yes
