@@ -131,6 +131,8 @@ httpd_modules:
 httpd_modules_dynamic: []
 
 httpd_modules_static:
+  - name: authz_host
+    enabled: yes
   - name: core
     enabled: yes
   - name: log_config
