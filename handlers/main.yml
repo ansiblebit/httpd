@@ -1,5 +1,5 @@
 ---
-# file: apache/handlers/main.yml
+# file: httpd/handlers/main.yml
 #
 # handlers file
 #

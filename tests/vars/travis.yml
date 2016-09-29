@@ -1,5 +1,5 @@
 ---
-# file: apache/tests/vars/travis.yml
+# file: httpd/tests/vars/travis.yml
 #
 # travis-ci specific variables.
 #

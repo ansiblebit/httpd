@@ -1,5 +1,5 @@
 ---
-# file: apache/defaults/package.yml
+# file: httpd/defaults/package.yml
 #
 # package installation defaults file
 #

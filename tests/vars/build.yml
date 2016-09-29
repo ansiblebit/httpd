@@ -1,5 +1,5 @@
 ---
-# file: apache/defaults/build.yml
+# file: httpd/defaults/build.yml
 #
 # build installation defaults file
 #

@@ -1,5 +1,5 @@
 ---
-# file: apache/tests/boxes.yml
+# file: httpd/tests/boxes.yml
 #
 
 vagrant:

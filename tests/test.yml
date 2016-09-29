@@ -1,5 +1,5 @@
 ---
-# file: apache/tests/test.yml
+# file: httpd/tests/test.yml
 
 - name: setup python2
   hosts: "{{ vagrant_box }}"

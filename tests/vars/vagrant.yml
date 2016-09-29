@@ -1,5 +1,5 @@
 ---
-# file: apache/tests/vars/vagrant.yml
+# file: httpd/tests/vars/vagrant.yml
 #
 # vagrant specific variables.
 #

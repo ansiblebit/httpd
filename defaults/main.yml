@@ -1,5 +1,5 @@
 ---
-# file: apache/defaults/main.yml
+# file: httpd/defaults/main.yml
 #
 # defaults file
 #
