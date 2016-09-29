@@ -1,0 +1,12 @@
+---
+# file: httpd/package/debug.yml
+#
+# package debug tasks.
+#
+
+- name: package | debug
+  debug:
+    var="{{ item }}"
+  when: "{{ item }} is defined"
+  with_items:
+    - httpd_installation
