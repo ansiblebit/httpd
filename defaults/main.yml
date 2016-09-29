@@ -200,8 +200,6 @@ httpd_user:
   home: /var/www-data
   shell: /usr/sbin/nologin
 
-httpd_version: 2.4.23
-
 
 httpd_configuration: |
 
