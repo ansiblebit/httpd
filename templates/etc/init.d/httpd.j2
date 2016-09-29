@@ -257,9 +257,9 @@ stop_htcacheclean() {
 
 
 # Sanity checks. They need to occur after function declarations
-[ -x ${DAEMON} ] || exit 0
+[ -x ${APACHECTL} ] || exit 0
 
-if [ ! -x ${DAEMON} ] ; then
+if [ ! -x ${APACHECTL} ] ; then
 	echo "No apache-bin package installed"
 	exit 0
 fi
