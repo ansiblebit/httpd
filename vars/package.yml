@@ -711,6 +711,8 @@ httpd_modules_dynamic:
           ProxyStatus On
       </IfModule>
 
+httpd_modules_static: []
+
 httpd_default: |
   ### htcacheclean settings ###
 
