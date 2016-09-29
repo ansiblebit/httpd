@@ -10,6 +10,7 @@ httpd_build_dependencies:
   - libaprutil1-dev
   - libpcre3-dev
   - perl
+  - pkg-config
 
 httpd_dir: /usr/local/httpd
 httpd_dir_cache: /var/cache/httpd
