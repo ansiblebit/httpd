@@ -15,7 +15,7 @@ httpd_user:
   shell: /usr/sbin/nologin
 
 
-http_configuration: |
+httpd_configuration: |
   #
   # ServerRoot: The top of the directory tree under which the server's
   # configuration, error, and log files are kept.
