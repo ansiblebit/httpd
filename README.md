@@ -30,6 +30,15 @@
 
 ## Role Variables
 
+- **httpd_installation**: the installation method: `build` or `package`.
+
+
+### package
+
+- ****:
+
+
+### build
 - **debug**: flag to run debug tasks.
 - **httpd_build_dependencies**: list of packages needed to build [apache][apache].
 - **httpd_build_options**: option to be passed to `configure`.

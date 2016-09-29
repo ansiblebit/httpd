@@ -1,14 +1,11 @@
 ---
-# file: apache/tests/tasks
+# file: apache/tests/tasks/main.yml
 #
-# Test tasks to verify role execution.
+# tasks file
 #
 
-- include: build.yml
-  tags: build
+- include: build/main.yml
+  when: httpd_installation == 'build'
 
-- include: configuration.yml
-  tags: configuration
-
-- include: modules.yml
-  tags: modules
+- include: package/main.yml
+  when: httpd_installation != 'build'

@@ -4,35 +4,8 @@
 # tasks file
 #
 
-- include: debug.yml
-  when: debug | default(false)
-  tags: debug
+- include: build/main.yml
+  when: httpd_installation == 'build'
 
-- include: validation.yml
-  tags: validation
-
-- name: setup apache account
-  user:
-    name="{{ httpd_user.name }}"
-    home="{{ httpd_user.home }}"
-    shell="{{ httpd_user.shell }}"
-    uid="{{ httpd_user.uid| default(omit) }}"
-    system=yes
-    state=present
-  become: yes
-
-- name: check if apache version is installed
-  command: "test -d {{ httpd_dir_source }}/httpd-{{ httpd_version }}"
-  register: task_apache_installed
-  changed_when: no
-  failed_when: no
-
-- include: build.yml
-  when: httpd_force_build or (task_apache_installed is defined and not task_apache_installed.rc == 0)
-  tags: build
-
-- include: configuration.yml
-  tags: configuration
-
-- include: modules.yml
-  tags: modules
+- include: package/main.yml
+  when: httpd_installation != 'build'
