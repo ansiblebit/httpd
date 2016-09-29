@@ -17,7 +17,7 @@
 
 DESC="web server"
 NAME=httpd
-DAEMON={{ httpd_dir }}/bin/apachectl
+DAEMON=apachectl
 
 SCRIPTNAME="${0##*/}"
 SCRIPTNAME="${SCRIPTNAME##[KS][0-9][0-9]}"
@@ -46,7 +46,7 @@ fi
 DAEMON_INIT_MESSAGE=''
 
 DAEMON_DIR_CONF={{ httpd_dir_configuration }}
-DAEMON_OPTS="-d ${DAEMON_DIR_CONF} -f ${DAEMON_DIR_CONF}/httpd.conf"
+DAEMON_OPTS="-d ${DAEMON_DIR_CONF} -f ${DAEMON_DIR_CONF}/httpd.conf -E {{ httpd_dir_log }}/startup.log"
 APACHE_PID_FILE='{{ httpd_pid_file }}'
 APACHECTL='{{ httpd_dir }}/bin/apachectl'
 
@@ -54,14 +54,7 @@ HTCACHECLEAN='{{ httpd_dir }}/bin/htcacheclean'
 
 
 # environment variables
-unset HOME
-
-export APACHE_RUN_USER='{{ httpd_user.name }}'
-export APACHE_RUN_GROUP='{{ httpd_user.name }}'
-export APACHE_PID_FILE='{{ httpd_pid_file }}'
-export APACHE_RUN_DIR='{{ httpd_dir_run }}'
-export APACHE_LOCK_DIR='{{ httpd_dir_lock }}'
-export APACHE_LOG_DIR='{{ httpd_dir_log }}'
+. {{ httpd_dir_configuration }}/env
 
 
 CONFTEST_OUTFILE=
