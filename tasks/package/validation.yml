@@ -9,6 +9,7 @@
     msg="{{ item }} is a mandatory variable"
   when: "{{ item }} is not defined"
   with_items:
+    - httpd_conf
     - httpd_configuration
     - httpd_configuration_envvars
     - httpd_default
