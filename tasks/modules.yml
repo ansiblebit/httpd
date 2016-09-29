@@ -27,7 +27,7 @@
 
 - name: modules | enable dynamic modules
   file:
-    src="etc/httpd/mods-available/{{ item.name }}.load"
+    src="{{ httpd_dir_configuration }}/mods-available/{{ item.name }}.load"
     dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.load"
     state=link
   with_items: "{{ httpd_modules_dynamic }}"
