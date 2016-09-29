@@ -11,7 +11,7 @@
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644
-  with_items: "{{ httpd_modules_dynamic }}"
+  with_items: "{{ httpd_modules }}"
   become: yes
 
 - name: modules | enable dynamic modules
