@@ -46,7 +46,8 @@ fi
 DAEMON_INIT_MESSAGE=''
 
 DAEMON_DIR_CONF={{ httpd_dir_configuration }}
-DAEMON_OPTS="-d ${DAEMON_DIR_CONF} -f ${DAEMON_DIR_CONF}/httpd.conf -E {{ httpd_dir_log }}/startup.log"
+DAEMON_OPTS="-d ${DAEMON_DIR_CONF} -f ${DAEMON_DIR_CONF}/httpd.conf"
+START_OPTS="-d ${DAEMON_DIR_CONF} -f ${DAEMON_DIR_CONF}/httpd.conf -E {{ httpd_dir_log }}/startup.log -k"
 APACHE_PID_FILE='{{ httpd_pid_file }}'
 APACHECTL='{{ httpd_dir }}/bin/apachectl'
 
@@ -61,37 +62,37 @@ fi
 
 CONFTEST_OUTFILE=
 cleanup() {
-	if [ -n "$CONFTEST_OUTFILE" ] ; then
-		rm -f "$CONFTEST_OUTFILE"
+	if [ -n "${CONFTEST_OUTFILE}" ] ; then
+		rm -f "${CONFTEST_OUTFILE}"
 	fi
 }
 trap cleanup 0  # "0" means "EXIT", but "EXIT" is not portable
 
 
 httpd_conftest() {
-	[ -z "$CONFTEST_OUTFILE" ] || rm -f "$CONFTEST_OUTFILE"
+	[ -z "${CONFTEST_OUTFILE}" ] || rm -f "${CONFTEST_OUTFILE}"
 	CONFTEST_OUTFILE=$(mktemp)
-	if ! ${APACHECTL} ${DAEMON_OPTS} -t > "$CONFTEST_OUTFILE" 2>&1 ; then
+	if ! ${APACHECTL} ${DAEMON_OPTS} -t > "${CONFTEST_OUTFILE}" 2>&1 ; then
 		return 1
 	else
-		rm -f "$CONFTEST_OUTFILE"
+		rm -f "${CONFTEST_OUTFILE}"
 		CONFTEST_OUTFILE=
 		return 0
 	fi
 }
 
 clear_error_msg() {
-	[ -z "$CONFTEST_OUTFILE" ] || rm -f "$CONFTEST_OUTFILE"
+	[ -z "${CONFTEST_OUTFILE}" ] || rm -f "${CONFTEST_OUTFILE}"
 	CONFTEST_OUTFILE=
 	DAEMON_INIT_MESSAGE=
 }
 
 print_error_msg() {
-	[ -z "$DAEMON_INIT_MESSAGE" ] || log_warning_msg "$DAEMON_INIT_MESSAGE"
-	if [ -n "$CONFTEST_OUTFILE" ] ; then
+	[ -z "${DAEMON_INIT_MESSAGE}" ] || log_warning_msg "${DAEMON_INIT_MESSAGE}"
+	if [ -n "${CONFTEST_OUTFILE}" ] ; then
 		echo "Output of config test was:" >&2
-		cat "$CONFTEST_OUTFILE" >&2
-		rm -f "$CONFTEST_OUTFILE"
+		cat "${CONFTEST_OUTFILE}" >&2
+		rm -f "${CONFTEST_OUTFILE}"
 		CONFTEST_OUTFILE=
 	fi
 }
@@ -119,7 +120,7 @@ httpd_wait_start() {
 httpd_wait_stop() {
 	local STATUS=$1
 
-	PIDTMP=$(pidofproc -p ${APACHE_PID_FILE} $DAEMON)
+	PIDTMP=$(pidofproc -p ${APACHE_PID_FILE} ${DAEMON})
 	if [ -n "${PIDTMP:-}" ] && kill -0 "${PIDTMP:-}" 2> /dev/null; then
 	        local i=0
 	        while kill -0 "${PIDTMP:-}" 2> /dev/null;  do
@@ -127,13 +128,13 @@ httpd_wait_stop() {
 	                        break
 	                        STATUS=2
 	                fi
-	                [ "$VERBOSE" != no ] && log_progress_msg "."
+	                [ "${VERBOSE}" != no ] && log_progress_msg "."
 	                sleep 1
 	                i=$(($i+1))
 	        done
-	        return $STATUS
+	        return ${STATUS}
 	else
-	    return $STATUS
+	    return ${STATUS}
 	fi
 }
 
@@ -153,11 +154,11 @@ do_start()
 	fi
 
 	if httpd_conftest ; then
-	        ${APACHECTL} ${DAEMON_OPTS} start
+	        ${APACHECTL} ${START_OPTS} start
 	        httpd_wait_start $?
 	        return $?
 	else
-	        DAEMON_INIT_MESSAGE="The httpdconfigtest failed."
+	        DAEMON_INIT_MESSAGE="The ${DAEMON} configtest failed."
 	        return 2
 	fi
 }
@@ -193,23 +194,23 @@ do_stop()
 	# 1 if Apache (whichever) is running
 	# 2 if Apache from the PIDFILE is running
 
-	if [ $AP_RET = 0 ] ; then
+	if [ ${AP_RET} = 0 ] ; then
 	        return 1
 	fi
 
-	if [ $AP_RET = 2 ] && httpd_conftest ; then
-	        ${APACHECTL} ${DAEMON_OPTS} $STOP > /dev/null 2>&1
+	if [ ${AP_RET} = 2 ] && httpd_conftest ; then
+	        ${APACHECTL} ${DAEMON_OPTS} -k ${STOP} > /dev/null 2>&1
 	        httpd_wait_stop $?
 	        return $?
 	else
-	        if [ $AP_RET = 2 ]; then
+	        if [ ${AP_RET} = 2 ]; then
 					clear_error_msg
 	                DAEMON_INIT_MESSAGE="The ${DAEMON} configtest failed, so we are trying to kill it manually. This is almost certainly suboptimal, so please make sure your system is working as you'd expect now!"
-	                killproc -p ${APACHE_PID_FILE} $DAEMON
+	                killproc -p ${APACHE_PID_FILE} ${DAEMON}
 	                httpd_wait_stop $?
 	                return $?
-	        elif [ $AP_RET = 1 ] ; then
-	                DAEMON_INIT_MESSAGE="There are processes named 'httpd' running which do not match your pid file which are left untouched in the name of safety, Please review the situation by hand".
+	        elif [ ${AP_RET} = 1 ] ; then
+	                DAEMON_INIT_MESSAGE="There are processes named '${DAEMON}' running which do not match your pid file which are left untouched in the name of safety, Please review the situation by hand".
 	                return 2
 	        fi
 	fi
@@ -325,7 +326,7 @@ case "$1" in
 
 	;;
   status)
-	status_of_proc -p ${APACHE_PID_FILE} "httpd" "$NAME"
+	status_of_proc -p ${APACHE_PID_FILE} "${DAEMON}" "$NAME"
 	exit $?
 	;;
   reload|force-reload|graceful)
