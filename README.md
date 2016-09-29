@@ -31,14 +31,22 @@
 ## Role Variables
 
 - **httpd_installation**: the installation method: `build` or `package`.
+- **httpd_ports**: list of ports [apache][apache] will be listening to.
+- **httpd_user**: user under which apache will be running.
+- **httpd_version**: the [apache][apache] version to be installed.
 
 
 ### package
+
+Variables specific to the `package` installation process.
 
 - ****:
 
 
 ### build
+
+Variables specific to the `build` installation process.
+
 - **debug**: flag to run debug tasks.
 - **httpd_build_dependencies**: list of packages needed to build [apache][apache].
 - **httpd_build_options**: option to be passed to `configure`.
@@ -61,10 +69,7 @@
 - **httpd_modules_static**: list of statically linked [apache][apache] modules.
 - **httpd_mpm_module**: the mpm [apache][apache] module.
 - **httpd_pid_file**: path to the [apache][apache] PID file.
-- **httpd_ports**: list of ports [apache][apache] will be listening to.
 - **httpd_tarball**: filename of the tarball.
-- **httpd_user**: user under which apache will be running.
-- **httpd_version**: the [apache][apache] version to be installed.
 
 
 ## Dependencies
