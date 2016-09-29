@@ -31,7 +31,7 @@
     group="{{ httpd_user.name }}"
     mode=0644
   with_items: "{{ httpd_modules_dynamic }}"
-  when: "{{ item.enabled }}"
+  when: "{{ item.enabled and item.configuration is defined }}"
   become: yes
 
 - name: modules | setup static modules configuration
@@ -42,7 +42,7 @@
     group="{{ httpd_user.name }}"
     mode=0644
   with_items: "{{ httpd_modules_static }}"
-  when: "{{ item.enabled }}"
+  when: "{{ item.enabled and item.configuration is defined }}"
   become: yes
 
 - name: modules | disable dynamic modules
