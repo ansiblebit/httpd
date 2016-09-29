@@ -13,6 +13,12 @@
     - httpd_configuration_envvars
     - httpd_default
     - httpd_dir_configuration
+    - httpd_dir_cache
+    - httpd_dir_configuration
+    - httpd_dir_lib
+    - httpd_dir_lock
+    - httpd_dir_log
+    - httpd_dir_run
     - httpd_installation
     - httpd_modules_dynamic
     - httpd_service
