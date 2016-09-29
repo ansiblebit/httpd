@@ -48,7 +48,9 @@
 - **httpd_download_url_asc**: the URL for the tarball PGP signature.
 - **httpd_download_url_md5**: the URL for the tarball MD5 checksum.
 - **httpd_modules**: list of [apache][apache] modules.
-- **httpd_modules_enabled**: list of enabled [apache][apache] modules.
+- **httpd_modules_dynamic**: list of dynamically linked [apache][apache] modules.
+- **httpd_modules_static**: list of statically linked [apache][apache] modules.
+- **httpd_mpm_module**: the mpm [apache][apache] module.
 - **httpd_pid_file**: path to the [apache][apache] PID file.
 - **httpd_ports**: list of ports [apache][apache] will be listening to.
 - **httpd_tarball**: filename of the tarball.

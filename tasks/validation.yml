@@ -27,6 +27,7 @@
     - httpd_force_build
     - httpd_modules_dynamic
     - httpd_modules_static
+    - httpd_mpm_module
     - httpd_ports
     - httpd_user.name
     - httpd_version

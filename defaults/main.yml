@@ -127,7 +127,9 @@ httpd_modules:
   - vhost_alias
   - xml2enc
 
-httpd_modules_enabled:
+httpd_modules_dynamic: []
+
+httpd_modules_static:
   - name: mpm_worker
     enabled: yes
     configuration: |
@@ -150,6 +152,8 @@ httpd_modules_enabled:
       <IfModule mod_proxy.c>
           ProxyStatus On
       </IfModule>
+
+httpd_mpm_module: mpm_worker
 
 httpd_ports:
   - 80
