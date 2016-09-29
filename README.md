@@ -42,7 +42,7 @@
 
 Variables specific to the `package` installation process.
 
-- ****:
+- **httpd_configuration_envvars**: configuration for the `/etc/apache2/envvars` file.
 
 
 ### build

@@ -10,6 +10,7 @@
   when: "{{ item }} is not defined"
   with_items:
     - httpd_configuration
+    - httpd_configuration_envvars
     - httpd_dir_configuration
     - httpd_installation
     - httpd_service
