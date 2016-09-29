@@ -30,8 +30,9 @@
 
 ## Role Variables
 
-- **httpd_configuration**: contents of the `/etc/httpd/httpd.conf` file.
-- **httpd_default**: contents of `/etc/default/httpd`.
+- **httpd_conf**: configuration settings for `{{ httpd_dir_configuration }}/conf-{available|enabled}`.
+- **httpd_configuration**: contents of the `{{ httpd_dir_configuration }}/httpd.conf` file.
+- **httpd_default**: contents of `/etc/default/{{ httpd_service }}`.
 - **httpd_dir_cache**: directory for [apache][apache] cache.
 - **httpd_dir_configuration**: directory for [apache][apache] configuration.
 - **httpd_dir_install**: directory where [apache][apache] will be installed.
