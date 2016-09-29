@@ -28,3 +28,7 @@
   tags: debug
 
 - include: "{{ httpd_installation }}/main.yml"
+  tags: installation
+
+- include: modules.yml
+  tags: modules
