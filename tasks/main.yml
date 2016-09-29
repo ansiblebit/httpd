@@ -35,3 +35,6 @@
 
 - include: sites.yml
   tags: sites
+
+- include: conf.yml
+  tags: conf
