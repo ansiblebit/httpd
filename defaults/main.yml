@@ -289,7 +289,7 @@ httpd_default: |
 
 httpd_dir_install: "{{ httpd_dir }}-{{ httpd_version }}"
 
-httpd_environment:
+httpd_environment: |
   unset HOME
 
   export APACHE_RUN_USER='{{ httpd_user.name }}'
@@ -303,7 +303,7 @@ httpd_tarball: "httpd-{{ httpd_version }}.tar.gz"
 
 
 httpd_build_options:
-  - "--with-mpm={{ httpd_mpm_module }}"
+  - "--with-mpm={{ httpd_mpm_module.replace('mpm_', '') }}"
   - "--prefix={{ httpd_dir_install }}"
   - "--enable-mods-static='{{ httpd_modules_static|map(attribute='name') }}'"
 
