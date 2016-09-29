@@ -28,6 +28,6 @@
   file:
     path="{{ httpd_dir_configuration }}/sites-enabled/{{ item.order | default('000') }}-{{ item.name }}.load"
     state=absent
-  with_items: "{{ httpd_sites_dynamic }}"
+  with_items: "{{ httpd_sites }}"
   when: "{{ not item.enabled }}"
   become: yes
