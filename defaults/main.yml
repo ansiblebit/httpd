@@ -10,94 +10,6 @@ httpd_build_dependencies:
   - libaprutil1-dev
   - libpcre3-dev
 
-httpd_configuration: |
-  ServerSignature Off
-  ServerTokens Prod
-
-  # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
-  Mutex file:${APACHE_LOCK_DIR} default
-
-  # The file in which the server should record its process identification number when it starts.
-  PidFile ${APACHE_PID_FILE}
-
-  # The number of seconds before receives and sends time out.
-  Timeout 300
-
-  # Whether or not to allow persistent connections (more than
-  # one request per connection). Set to "Off" to deactivate.
-  KeepAlive On
-
-  # The maximum number of requests to allow during a persistent connection.
-  # Set to 0 to allow an unlimited amount.
-  MaxKeepAliveRequests 100
-
-  # KeepAliveTimeout: Number of seconds to wait for the next request from the
-  # same client on the same connection.
-  KeepAliveTimeout 5
-
-  # These need to be set in /etc/httpd/envvars
-  User ${APACHE_RUN_USER}
-  Group ${APACHE_RUN_GROUP}
-
-  # Log the names of clients or just their IP addresses.
-  HostnameLookups Off
-
-  # The location of the error log file.
-  ErrorLog ${APACHE_LOG_DIR}/error.log
-
-  # Control the severity of messages logged to the error_log.
-  LogLevel warn
-
-  # Include module configuration:
-  IncludeOptional mods-enabled/*.load
-  IncludeOptional mods-enabled/*.conf
-
-  # Include list of ports to listen on
-  Include ports.conf
-
-
-  # Sets the default security model of the Apache2 HTTPD server. It does
-  # not allow access to the root filesystem outside of /usr/share and /var/www.
-  # The former is used by web applications packaged in Debian,
-  # the latter may be used for local directories served by the web server. If
-  # your system is serving content from a sub-directory in /srv you must allow
-  # access here, or in any related virtual host.
-  <Directory />
-      Options FollowSymLinks
-      AllowOverride None
-      Require all denied
-  </Directory>
-
-  <Directory /var/www/>
-      Options Indexes FollowSymLinks
-      AllowOverride None
-      Require all granted
-  </Directory>
-
-  #
-  # The following directives define some format nicknames for use with
-  # a CustomLog directive.
-  #
-  # These deviate from the Common Log Format definitions in that they use %O
-  # (the actual bytes sent including headers) instead of %b (the size of the
-  # requested file), because the latter makes it impossible to detect partial
-  # requests.
-  #
-  # Note that the use of %{X-Forwarded-For}i instead of %h is not recommended.
-  # Use mod_remoteip instead.
-  #
-  LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
-  LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
-  LogFormat "%h %l %u %t \"%r\" %>s %O" common
-  LogFormat "%{Referer}i -> %U" referer
-  LogFormat "%{User-agent}i" agent
-
-  # Include generic snippets of statements
-  IncludeOptional conf-enabled/*.conf
-
-  # Include the virtual host configurations:
-  IncludeOptional sites-enabled/*.conf
-
 httpd_dir: /usr/local/httpd
 httpd_dir_cache: /var/cache/httpd
 httpd_dir_configuration: /etc/httpd
@@ -250,16 +162,100 @@ httpd_user:
 httpd_version: 2.4.23
 
 
+httpd_configuration: |
+
+  ServerRoot "{{ httpd_dir_configuration }}"
+
+  # Include list of ports to listen on
+  Include ports.conf
+
+  # Include module configuration:
+  IncludeOptional mods-enabled/*.load
+  IncludeOptional mods-enabled/*.conf
+
+  ServerSignature Off
+  ServerTokens Prod
+
+  # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.
+  Mutex file:${APACHE_LOCK_DIR} default
+
+  # The file in which the server should record its process identification number when it starts.
+  PidFile ${APACHE_PID_FILE}
+
+  # The number of seconds before receives and sends time out.
+  Timeout 300
+
+  # Whether or not to allow persistent connections (more than
+  # one request per connection). Set to "Off" to deactivate.
+  KeepAlive On
+
+  # The maximum number of requests to allow during a persistent connection.
+  # Set to 0 to allow an unlimited amount.
+  MaxKeepAliveRequests 100
+
+  # KeepAliveTimeout: Number of seconds to wait for the next request from the
+  # same client on the same connection.
+  KeepAliveTimeout 5
+
+  # These need to be set in /etc/httpd/envvars
+  <IfModule unixd_module>
+      User ${APACHE_RUN_USER}
+      Group ${APACHE_RUN_GROUP}
+  </IfModule>
+
+  # Log the names of clients or just their IP addresses.
+  HostnameLookups Off
+
+  # The location of the error log file.
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+
+  # Control the severity of messages logged to the error_log.
+  LogLevel warn
+
+
+  # Sets the default security model of the Apache2 HTTPD server. It does
+  # not allow access to the root filesystem outside of /usr/share and /var/www.
+  # The former is used by web applications packaged in Debian,
+  # the latter may be used for local directories served by the web server. If
+  # your system is serving content from a sub-directory in /srv you must allow
+  # access here, or in any related virtual host.
+  <Directory />
+      Options FollowSymLinks
+      AllowOverride None
+      Require all denied
+  </Directory>
+
+  <Directory /var/www/>
+      Options Indexes FollowSymLinks
+      AllowOverride None
+      Require all granted
+  </Directory>
+
+  #
+  # The following directives define some format nicknames for use with
+  # a CustomLog directive.
+  #
+  # These deviate from the Common Log Format definitions in that they use %O
+  # (the actual bytes sent including headers) instead of %b (the size of the
+  # requested file), because the latter makes it impossible to detect partial
+  # requests.
+  #
+  # Note that the use of %{X-Forwarded-For}i instead of %h is not recommended.
+  # Use mod_remoteip instead.
+  #
+  LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
+  LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+  LogFormat "%h %l %u %t \"%r\" %>s %O" common
+  LogFormat "%{Referer}i -> %U" referer
+  LogFormat "%{User-agent}i" agent
+
+  # Include generic snippets of statements
+  IncludeOptional conf-enabled/*.conf
+
+  # Include the virtual host configurations:
+  IncludeOptional sites-enabled/*.conf
+
 httpd_default: |
-  APACHE_RUN_USER={{ httpd_user.name }}
-  APACHE_RUN_GROUP={{ httpd_user.name }}
-  APACHE_PID_FILE={{ httpd_dir_run }}/httpd.pid
-  APACHE_RUN_DIR={{ httpd_dir_run }}
-  APACHE_LOCK_DIR={{ httpd_dir_lock }}
-  APACHE_LOG_DIR={{ httpd_dir_log }}
-  LANG=C
-
-
   ### htcacheclean settings ###
 
   ## run htcacheclean: yes, no, auto
@@ -280,7 +276,7 @@ httpd_default: |
 
   ## path to cache
   ## must be the same as in CacheRoot directive
-  HTCACHECLEAN_PATH=/var/cache/httpd/mod_cache_disk
+  HTCACHECLEAN_PATH={{ httpd_dir_cache }}/mod_cache_disk
 
   ## additional options:
   ## -n : be nice
@@ -290,10 +286,14 @@ httpd_default: |
 httpd_dir_install: "{{ httpd_dir }}-{{ httpd_version }}"
 httpd_tarball: "httpd-{{ httpd_version }}.tar.gz"
 
+
 httpd_build_options:
   - '--with-mpm=worker'
   - "--prefix={{ httpd_dir_install }}"
+  - "--enable-mods-static='authz_core core so http log_config logio unixd'"
 
 httpd_download_url: "http://apache.osuosl.org//httpd/{{ httpd_tarball }}"
 httpd_download_url_asc: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.asc"
 httpd_download_url_md5: "https://www.apache.org/dist/httpd/{{ httpd_tarball }}.md5"
+
+httpd_pid_file: "{{ httpd_dir_run }}/httpd.pid"
