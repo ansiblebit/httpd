@@ -1,0 +1,15 @@
+---
+# file: httpd/vars/package.yml
+#
+# package installation variables
+#
+
+httpd_dir_configuration: /etc/apache2
+
+httpd_ports:
+  - 80
+
+httpd_user:
+  name: www-data
+  home: /var/www-data
+  shell: /usr/sbin/nologin
