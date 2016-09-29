@@ -1,7 +1,7 @@
 ---
 # file: apache/defaults/build.yml
 #
-# build defaults file
+# build installation defaults file
 #
 
 httpd_build_dependencies:
