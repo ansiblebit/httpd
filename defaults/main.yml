@@ -122,6 +122,7 @@ httpd_modules:
   - substitute
   - suexec
   - unique_id
+  - unixd
   - userdir
   - usertrack
   - vhost_alias
