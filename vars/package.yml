@@ -777,7 +777,7 @@ httpd_sites:
       </VirtualHost>
   - order: '000'
     name: 'default-ssl'
-    enabled:
+    enabled: no
     configuration: |
       <IfModule mod_ssl.c>
           <VirtualHost _default_:443>
