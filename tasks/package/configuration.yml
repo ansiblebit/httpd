@@ -17,7 +17,7 @@
 - name: build | configuration | /etc/httpd/httpd.conf
   template:
     src=etc/httpd/httpd.conf.j2
-    dest="{{ httpd_dir_configuration }}/httpd.conf"
+    dest="{{ httpd_dir_configuration }}/apache2.conf"
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644
