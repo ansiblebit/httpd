@@ -1,2 +1,0 @@
-# Ansible managed file, do not edit directly
-LoadModule status_module /usr/lib/httpd/mod_status.so
