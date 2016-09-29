@@ -10,3 +10,6 @@
 
 - include: validation.yml
   tags: validation
+
+- include: installation.yml
+  tags: installation
