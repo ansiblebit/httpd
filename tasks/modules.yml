@@ -26,7 +26,7 @@
 - name: modules | setup dynamic modules configuration
   template:
     src=etc/httpd/mods-enabled/mod_dynamic.conf.j2
-    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
+    dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.order | default('000') }}-{{ item.name }}.conf"
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
     mode=0644
