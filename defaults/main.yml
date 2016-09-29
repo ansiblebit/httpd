@@ -130,6 +130,32 @@ httpd_modules:
 httpd_modules_dynamic: []
 
 httpd_modules_static:
+  - name: core
+    enabled: yes
+  - name: log_config
+    enabled: yes
+    configuration: |
+      #
+      # The following directives define some format nicknames for use with
+      # a CustomLog directive.
+      #
+      # These deviate from the Common Log Format definitions in that they use %O
+      # (the actual bytes sent including headers) instead of %b (the size of the
+      # requested file), because the latter makes it impossible to detect partial
+      # requests.
+      #
+      # Note that the use of %{X-Forwarded-For}i instead of %h is not recommended.
+      # Use mod_remoteip instead.
+      #
+      LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
+      LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+      LogFormat "%h %l %u %t \"%r\" %>s %O" common
+      LogFormat "%{Referer}i -> %U" referer
+      LogFormat "%{User-agent}i" agent
+  - name: logio
+    enabled: yes
+  - name: mod_authz_core
+    enabled: yes
   - name: mpm_worker
     enabled: yes
     configuration: |
@@ -139,6 +165,8 @@ httpd_modules_static:
       MinSpareThreads     25
       MaxSpareThreads     75
       ThreadsPerChild     25
+  - name: so
+    enabled: yes
   - name: status
     enabled: yes
     configuration: |
@@ -152,6 +180,11 @@ httpd_modules_static:
       <IfModule mod_proxy.c>
           ProxyStatus On
       </IfModule>
+  - name: unixd
+    enabled: yes
+    configuration: |
+      User ${APACHE_RUN_USER}
+      Group ${APACHE_RUN_GROUP}
 
 httpd_mpm_module: mpm_worker
 
@@ -201,12 +234,6 @@ httpd_configuration: |
   # same client on the same connection.
   KeepAliveTimeout 5
 
-  # These need to be set in /etc/httpd/envvars
-  <IfModule unixd_module>
-      User ${APACHE_RUN_USER}
-      Group ${APACHE_RUN_GROUP}
-  </IfModule>
-
   # Log the names of clients or just their IP addresses.
   HostnameLookups Off
 
@@ -234,24 +261,6 @@ httpd_configuration: |
       AllowOverride None
       Require all granted
   </Directory>
-
-  #
-  # The following directives define some format nicknames for use with
-  # a CustomLog directive.
-  #
-  # These deviate from the Common Log Format definitions in that they use %O
-  # (the actual bytes sent including headers) instead of %b (the size of the
-  # requested file), because the latter makes it impossible to detect partial
-  # requests.
-  #
-  # Note that the use of %{X-Forwarded-For}i instead of %h is not recommended.
-  # Use mod_remoteip instead.
-  #
-  LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
-  LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
-  LogFormat "%h %l %u %t \"%r\" %>s %O" common
-  LogFormat "%{Referer}i -> %U" referer
-  LogFormat "%{User-agent}i" agent
 
   # Include generic snippets of statements
   IncludeOptional conf-enabled/*.conf
