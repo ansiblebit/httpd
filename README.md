@@ -9,6 +9,10 @@
 
 [Ansible][ansible] role to setup the [Apache HTTP server][apache].
 
+Currently only the `package` installation is tested and working properly.
+
+The `source` installation currently has a problem when building the code.
+
 
 ## Tests
 
@@ -16,11 +20,11 @@
 |:-:|:-:|:-:|:-:|
 | Debian | Debian  | Jessie  | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
 | Debian | Debian  | Wheezy  | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
-| Debian | Ubuntu  | Precise | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
 | Debian | Ubuntu  | Yakkety | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
 | Debian | Ubuntu  | Xenial  | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
-| Debian | Ubuntu  | Vivid   | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
+| Debian | Ubuntu  | Wily    | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
 | Debian | Ubuntu  | Trusty  | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
+| Debian | Ubuntu  | Precise | [![x86_64](http://img.shields.io/badge/x86_64-passed-006400.svg?style=flat)](#) |
 
 
 ## Requirements
@@ -83,8 +87,11 @@ None.
 ## Playbooks
 
     - hosts: servers
+      vars:
+        see tests/vars/vagrant.yml
+    
       roles:
-         - role: ansiblebit.apache
+         - role: ansiblebit.httpd
 
 
 ## Tags
