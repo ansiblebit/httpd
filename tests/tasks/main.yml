@@ -9,3 +9,6 @@
 
 - include: package/main.yml
   when: httpd_installation != 'build'
+
+- include: modules.yml
+  tags: modules
