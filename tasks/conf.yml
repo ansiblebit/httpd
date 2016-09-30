@@ -17,8 +17,8 @@
 
 - name: conf | enable conf
   file:
-    src="{{ httpd_dir_configuration }}/conf-available/{{ item.name }}.load"
-    dest="{{ httpd_dir_configuration }}/conf-enabled/{{ item.name }}.load"
+    src="{{ httpd_dir_configuration }}/conf-available/{{ item.name }}.conf"
+    dest="{{ httpd_dir_configuration }}/conf-enabled/{{ item.name }}.conf"
     state=link
   with_items: "{{ httpd_conf }}"
   when: "{{ item.enabled }}"
@@ -26,7 +26,7 @@
 
 - name: conf | disable conf
   file:
-    path="{{ httpd_dir_configuration }}/conf-enabled/{{ item.name }}.load"
+    path="{{ httpd_dir_configuration }}/conf-enabled/{{ item.name }}.conf"
     state=absent
   with_items: "{{ httpd_conf }}"
   when: "{{ not item.enabled }}"
