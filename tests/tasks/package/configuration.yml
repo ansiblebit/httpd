@@ -33,6 +33,7 @@
   with_items:
     - etc/default/httpd
     - etc/apache2/ports.conf
+    - etc/apache2/apache2.conf
   changed_when: no
 
 - name: ensure config was generated as expected
@@ -41,4 +42,5 @@
   with_items:
     - etc/default/httpd
     - etc/apache2/ports.conf
+    - etc/apache2/apache2.conf
   changed_when: no
