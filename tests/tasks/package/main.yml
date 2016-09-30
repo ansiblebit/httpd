@@ -1,0 +1,14 @@
+---
+# file: httpd/tests/tasks/package/main.yml
+#
+# Test tasks to verify role execution.
+#
+
+- include: package.yml
+  tags: installation
+
+- include: configuration.yml
+  tags: configuration
+
+- include: modules.yml
+  tags: modules
