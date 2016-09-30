@@ -1,2 +1,2 @@
 # Ansible managed file, do not edit directly
-LoadModule setenvif_module /usr/lib/apache2/mod_setenvif.so
+LoadModule setenvif_module /usr/lib/apache2/modules/mod_setenvif.so
