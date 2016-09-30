@@ -1,0 +1,11 @@
+---
+# file: httpd/tests/tasks/build/build.yml
+#
+# Test tasks to verify package installation.
+#
+
+- name: is apache2 package installed?
+  command: dpkg-query -W -f='${Status}\n' apache2
+  register: test
+  changed_when: no
+  failed_when: test.stdout.find('install ok installed') == -1
