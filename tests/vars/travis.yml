@@ -310,7 +310,7 @@ httpd_modules_dynamic:
   - name: authn_file
     enabled: yes
   - name: authz_core
-    enabled: yes
+    enabled: no
   - name: authz_host
     enabled: yes
   - name: authz_user
