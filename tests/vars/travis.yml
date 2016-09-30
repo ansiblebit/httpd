@@ -677,7 +677,7 @@ httpd_modules_dynamic:
       AddType text/html .shtml
       AddOutputFilter INCLUDES .shtml
   - name: mpm_event
-    enabled: yes
+    enabled: no
     configuration: |
       # event MPM
       # StartServers: initial number of server processes to start
