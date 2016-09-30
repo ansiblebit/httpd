@@ -5,6 +5,6 @@
 #
 
 httpd_user:
-  name: vagrant
-  home: /home/vagrant
-  shell: /bin/bash
+  name: www-data
+  home: /var/www
+  shell: /usr/sbin/nologin
