@@ -4,7 +4,6 @@
 # package installation variables
 #
 
-httpd_dir_configuration: /etc/apache2
 httpd_dir_cache: /var/cache/apache2
 httpd_dir_configuration: /etc/apache2
 httpd_dir_lib: /usr/lib/apache2/modules
