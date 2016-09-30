@@ -306,7 +306,7 @@ httpd_modules_dynamic:
   - name: auth_basic
     enabled: yes
   - name: authn_core
-    enabled: yes
+    enabled: no
   - name: authn_file
     enabled: yes
   - name: authz_core
