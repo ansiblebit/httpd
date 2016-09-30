@@ -1,5 +1,5 @@
 # {{ ansible_managed }}
 
-<IfModule {{ item.name }}_module.c>
+<IfModule mod_{{ item.name }}.c>
 {{ item.configuration | indent(4, true) }}
 </IfModule>
