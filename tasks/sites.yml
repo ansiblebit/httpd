@@ -17,8 +17,8 @@
 
 - name: sites | enable sites
   file:
-    src="{{ httpd_dir_configuration }}/sites-available/{{ item.order | default('000') }}-{{ item.name }}.load"
-    dest="{{ httpd_dir_configuration }}/sites-enabled/{{ item.order | default('000') }}-{{ item.name }}.load"
+    src="{{ httpd_dir_configuration }}/sites-available/{{ item.order | default('000') }}-{{ item.name }}.conf"
+    dest="{{ httpd_dir_configuration }}/sites-enabled/{{ item.order | default('000') }}-{{ item.name }}.conf"
     state=link
   with_items: "{{ httpd_sites }}"
   when: "{{ item.enabled }}"
@@ -26,7 +26,7 @@
 
 - name: sites | disable sites
   file:
-    path="{{ httpd_dir_configuration }}/sites-enabled/{{ item.order | default('000') }}-{{ item.name }}.load"
+    path="{{ httpd_dir_configuration }}/sites-enabled/{{ item.order | default('000') }}-{{ item.name }}.conf"
     state=absent
   with_items: "{{ httpd_sites }}"
   when: "{{ not item.enabled }}"
