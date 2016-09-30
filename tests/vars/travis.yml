@@ -280,7 +280,7 @@ httpd_default: |
 
 httpd_modules_dynamic:
   - name: access_compat
-    enabled: yes
+    enabled: no
   - name: alias
     enabled: yes
     configuration: |
