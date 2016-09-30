@@ -8,8 +8,8 @@
   template:
     src=etc/httpd/mods-enabled/mod_static.conf.j2
     dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0644
   with_items: "{{ httpd_modules_static }}"
   when: "{{ item.enabled and item.configuration is defined }}"
@@ -19,8 +19,8 @@
   template:
     src=etc/httpd/mods-available/mod.load.j2
     dest="{{ httpd_dir_configuration }}/mods-available/{{ item }}.load"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0644
   with_items: "{{ httpd_modules }}"
   become: yes
@@ -38,8 +38,8 @@
   template:
     src=etc/httpd/mods-enabled/mod_dynamic.conf.j2
     dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0644
   with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ item.enabled and item.configuration is defined }}"

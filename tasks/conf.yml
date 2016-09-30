@@ -8,8 +8,8 @@
   template:
     src=etc/httpd/conf-available/conf.conf.j2
     dest="{{ httpd_dir_configuration }}/conf-available/{{ item.name }}.conf"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0644
   with_items: "{{ httpd_conf }}"
   when: "{{ item.enabled and item.configuration is defined }}"

@@ -7,8 +7,8 @@
 - name: package | configuration | setup configuration directories
   file:
     path="{{ httpd_dir_configuration }}/{{ item }}"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0755
     state=directory
   become: yes
@@ -25,8 +25,8 @@
   template:
     src=etc/default/httpd.j2
     dest="/etc/default/{{ httpd_service }}"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0644
   become: yes
   notify: restart httpd
@@ -35,8 +35,8 @@
   template:
     src=etc/httpd/httpd.conf.j2
     dest="{{ httpd_dir_configuration }}/apache2.conf"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0644
   become: yes
   notify: restart httpd
@@ -45,8 +45,8 @@
   template:
     src=etc/httpd/ports.conf.j2
     dest="{{ httpd_dir_configuration }}/ports.conf"
-    owner="{{ httpd_user.name }}"
-    group="{{ httpd_user.name }}"
+    owner=root
+    group=root
     mode=0644
   become: yes
   notify: restart httpd
