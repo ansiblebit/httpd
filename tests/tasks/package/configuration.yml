@@ -40,7 +40,7 @@
   command: "diff -q -w /{{ item }} /tmp/{{ item.replace('/', '_') }}.expected"
   become: yes
   with_items:
-    - etc/default/httpd
+    - etc/default/apache2
     - etc/apache2/ports.conf
     - etc/apache2/apache2.conf
   changed_when: no
