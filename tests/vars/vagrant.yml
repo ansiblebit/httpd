@@ -4,6 +4,8 @@
 # vagrant specific variables.
 #
 
+debug: yes
+
 httpd_user:
   name: www-data
   home: /var/www

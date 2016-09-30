@@ -15,9 +15,6 @@
   hosts: "{{ vagrant_box }}"
   gather_facts: yes
 
-  vars:
-    debug: yes
-
   pre_tasks:
     - include_vars: "vars/{{ env }}.yml"
 
