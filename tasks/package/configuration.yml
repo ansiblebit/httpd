@@ -31,7 +31,7 @@
   become: yes
   notify: restart httpd
 
-- name: package | configuration | /etc/httpd/httpd.conf
+- name: package | configuration | apache2.conf
   template:
     src=etc/httpd/httpd.conf.j2
     dest="{{ httpd_dir_configuration }}/apache2.conf"
