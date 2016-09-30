@@ -177,7 +177,7 @@ httpd_conf:
       #
       #Header set X-Frame-Options: "sameorigin"
   - name: serve-cgi-bin
-    enabled: yes
+    enabled: no
     configuration: |
       <IfModule mod_alias.c>
           <IfModule mod_cgi.c>
