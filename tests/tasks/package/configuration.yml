@@ -1,0 +1,44 @@
+---
+# file: httpd/tests/tasks/package/configuration.yml
+#
+# Test tasks to verify configuration.
+#
+
+- name: configuration | directory(ies) are present?
+  command: "test -d {{ httpd_dir_configuration }}/{{ item }}"
+  with_items:
+    - ''
+    - /conf-available
+    - /conf-enabled
+    - /mods-available
+    - /mods-enabled
+    - /sites-available
+    - /sites-enabled
+  become: yes
+  changed_when: no
+
+- name: configuration | logging directory is present?
+  command: "test -d {{ httpd_dir_log }}"
+  become: yes
+  changed_when: no
+
+- name: copy to server expected configuration
+  copy:
+    src="files/{{ item }}"
+    dest="/tmp/{{ item.replace('/', '_') }}.expected"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  become: yes
+  with_items:
+    - etc/default/httpd
+    - etc/apache2/ports.conf
+  changed_when: no
+
+- name: ensure config was generated as expected
+  command: "diff -q -w /{{ item }} /tmp/{{ item.replace('/', '_') }}.expected"
+  become: yes
+  with_items:
+    - etc/default/httpd
+    - etc/apache2/ports.conf
+  changed_when: no
