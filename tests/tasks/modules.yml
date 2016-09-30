@@ -18,7 +18,7 @@
 - name: modules | check .conf files at mods-enabled?
   command: "test -e {{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
   with_items: "{{ httpd_modules_dynamic }}"
-  when: "{{ item.enabled }}"
+  when: "{{ item.enabled and item.configuration is defined }}"
   changed_when: no
 
 - name: copy to server expected module configuration
