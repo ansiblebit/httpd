@@ -8,6 +8,9 @@ matrix:
     - python: 2.7
       env: TOXENV=py27-ansible20
 
+before_install:
+  - sudo apt-get -qq update
+
 install:
   - pip install tox
 
@@ -21,5 +24,5 @@ before_cache:
   - rm -f ${HOME}/.cache/pip/log/debug.log
 
 cache:
-  directories:
-    - ${HOME}/.cache/pip
+  pip: true
+
