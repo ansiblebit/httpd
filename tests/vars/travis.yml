@@ -1029,8 +1029,8 @@ httpd_configuration: |
   LogLevel warn
 
   # Include module configuration:
-  IncludeOptional mods-enabled/*.load
-  IncludeOptional mods-enabled/*.conf
+  Include mods-enabled/*.load
+  Include mods-enabled/*.conf
 
   # Include list of ports to listen on
   Include ports.conf
@@ -1105,7 +1105,7 @@ httpd_configuration: |
   # see README.Debian for details.
 
   # Include generic snippets of statements
-  IncludeOptional conf-enabled/*.conf
+  Include conf-enabled/*.conf
 
   # Include the virtual host configurations:
-  IncludeOptional sites-enabled/*.conf
+  Include sites-enabled/*.conf
