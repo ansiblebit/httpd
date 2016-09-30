@@ -11,13 +11,13 @@
 
 - name: modules | check .load files at mods-enabled?
   command: "test -e {{ httpd_dir_configuration }}/mods-enabled/{{ item }}.load"
-  with_items: "{{ httpd_modules }}"
+  with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ item.enabled }}"
   changed_when: no
 
 - name: modules | check .conf files at mods-enabled?
   command: "test -e {{ httpd_dir_configuration }}/mods-enabled/{{ item }}.conf"
-  with_items: "{{ httpd_modules }}"
+  with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ item.enabled }}"
   changed_when: no
 
