@@ -9,7 +9,7 @@
     path="{{ httpd_dir_configuration }}/{{ item }}"
     owner="{{ httpd_user.name }}"
     group="{{ httpd_user.name }}"
-    mode=0750
+    mode=0755
     state=directory
   become: yes
   with_items:
