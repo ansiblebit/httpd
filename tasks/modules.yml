@@ -59,7 +59,7 @@
     dest="{{ httpd_dir_configuration }}/mods-enabled/{{ item.name }}.conf"
     state=link
   with_items: "{{ httpd_modules_dynamic }}"
-  when: "{{ item.enabled }}"
+  when: "{{ item.enabled and item.configuration is defined }}"
   become: yes
 
 - name: modules | dynamic | disable modules
