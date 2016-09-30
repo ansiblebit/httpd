@@ -35,7 +35,7 @@
     - etc/apache2/ports.conf
   changed_when: no
 
-- name: copy to server expected configuration
+- name: copy apache2.conf expected configuration
   copy:
     src="files/{{ item }}"
     dest="/tmp/etc_apache2_apache2.conf.expected"
