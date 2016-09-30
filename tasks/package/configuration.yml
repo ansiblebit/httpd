@@ -4,7 +4,24 @@
 # package configuration tasks.
 #
 
-- name: build | configuration | /etc/default/httpd
+- name: package | configuration | setup configuration directories
+  file:
+    path="{{ httpd_dir_configuration }}/{{ item }}"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0750
+    state=directory
+  become: yes
+  with_items:
+    - ''
+    - conf-available
+    - conf-enabled
+    - mods-available
+    - mods-enabled
+    - sites-available
+    - sites-enabled
+
+- name: package | configuration | /etc/default/httpd
   template:
     src=etc/default/httpd.j2
     dest="/etc/default/{{ httpd_service }}"
@@ -14,7 +31,7 @@
   become: yes
   notify: restart httpd
 
-- name: build | configuration | /etc/httpd/httpd.conf
+- name: package | configuration | /etc/httpd/httpd.conf
   template:
     src=etc/httpd/httpd.conf.j2
     dest="{{ httpd_dir_configuration }}/apache2.conf"
@@ -24,7 +41,7 @@
   become: yes
   notify: restart httpd
 
-- name: build | configuration | /etc/httpd/ports.conf
+- name: package | configuration | /etc/httpd/ports.conf
   template:
     src=etc/httpd/ports.conf.j2
     dest="{{ httpd_dir_configuration }}/ports.conf"
