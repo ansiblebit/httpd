@@ -1,0 +1,35 @@
+---
+# file: httpd/tests/tasks/build/conf.yml
+#
+# Test tasks to verify conf directory configuration.
+#
+
+- name: conf | check files at conf-available?
+  command: "test -e {{ httpd_dir_configuration }}/conf-available/{{ item.name }}.conf"
+  with_items: "{{ httpd_conf }}"
+  changed_when: no
+
+- name: conf | check files at conf-available?
+  command: "test -e {{ httpd_dir_configuration }}/conf-enabled/{{ item.name }}.conf"
+  with_items: "{{ httpd_conf }}"
+  when: "{{ item.enabled }}"
+  changed_when: no
+
+- name: copy to server expected module configuration
+  copy:
+    src="files/{{ item }}"
+    dest="/tmp/{{ item.replace('/', '_') }}.expected"
+    owner="{{ httpd_user.name }}"
+    group="{{ httpd_user.name }}"
+    mode=0644
+  become: yes
+  with_items:
+    - etc/httpd/conf-enabled/security.conf
+  changed_when: no
+
+- name: ensure config was generated as expected
+  command: "diff -q -w /{{ item }} /tmp/{{ item.replace('/', '_') }}.expected"
+  become: yes
+  with_items:
+    - etc/httpd/conf-enabled/security.conf
+  changed_when: no
