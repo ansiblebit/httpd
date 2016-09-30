@@ -4,9 +4,21 @@
 # Test tasks to verify modules configuration.
 #
 
-- name: modules | load files are present?
+- name: modules | check files at mods-available?
   command: "test -e {{ httpd_dir_configuration }}/mods-available/{{ item }}.load"
   with_items: "{{ httpd_modules }}"
+  changed_when: no
+
+- name: modules | check .load files at mods-enabled?
+  command: "test -e {{ httpd_dir_configuration }}/mods-enabled/{{ item }}.load"
+  with_items: "{{ httpd_modules }}"
+  when: "{{ item.enabled }}"
+  changed_when: no
+
+- name: modules | check .conf files at mods-enabled?
+  command: "test -e {{ httpd_dir_configuration }}/mods-enabled/{{ item }}.conf"
+  with_items: "{{ httpd_modules }}"
+  when: "{{ item.enabled }}"
   changed_when: no
 
 - name: copy to server expected module configuration
