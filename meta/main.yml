@@ -20,5 +20,9 @@ galaxy_info:
         - trusty
         - precise
   galaxy_tags:
+    - apache
+    - debian
+    - httpd
+    - ubuntu
     - web
 dependencies: []
