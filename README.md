@@ -49,6 +49,7 @@ The `source` installation currently has a problem when building the code.
 - **httpd_modules_static**: list of statically linked [apache][apache] modules.
 - **httpd_ports**: list of ports [apache][apache] will be listening to.
 - **httpd_service**: name of the service: `apache2` for package installations; `httpd` otherwise.
+- **httpd_sites**: list of available sites.
 - **httpd_user**: user under which apache will be running.
 - **httpd_version**: the [apache][apache] version to be installed.
 
@@ -75,7 +76,6 @@ Variables specific to the `build` installation process.
 - **httpd_download_url_md5**: the URL for the tarball MD5 checksum.
 - **httpd_mpm_module**: the mpm [apache][apache] module.
 - **httpd_pid_file**: path to the [apache][apache] PID file.
-- **httpd_sites**: list of available sites.
 - **httpd_tarball**: filename of the tarball.
 
 
