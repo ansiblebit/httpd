@@ -34,6 +34,7 @@ The `source` installation currently has a problem when building the code.
 
 ## Role Variables
 
+- **debug**: flag to run debug tasks.
 - **httpd_conf**: configuration settings for `{{ httpd_dir_configuration }}/conf-{available|enabled}`.
 - **httpd_configuration**: contents of the `{{ httpd_dir_configuration }}/httpd.conf` file.
 - **httpd_default**: contents of `/etc/default/{{ httpd_service }}`.
@@ -65,7 +66,6 @@ Variables specific to the `package` installation process.
 
 Variables specific to the `build` installation process.
 
-- **debug**: flag to run debug tasks.
 - **httpd_build_dependencies**: list of packages needed to build [apache][apache].
 - **httpd_build_options**: option to be passed to `configure`.
 - **httpd_dir**: symlink to the enabled [apache][apache] installation.
