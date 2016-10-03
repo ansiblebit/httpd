@@ -111,4 +111,5 @@ httpd_modules:
   - userdir
   - usertrack
   - vhost_alias
+  - wsgi
   - xml2enc
