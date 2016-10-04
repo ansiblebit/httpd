@@ -8,5 +8,5 @@
   apt:
     name=apache2
     state=present
-    version="{{ http_version | default(omit) }}"
+    version="{{ httpd_version | default(omit) }}"
   become: yes
