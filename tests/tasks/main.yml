@@ -4,11 +4,7 @@
 # tasks file
 #
 
-- include: build/main.yml
-  when: httpd_installation == 'build'
-
-- include: package/main.yml
-  when: httpd_installation != 'build'
+- include: "{{ httpd_installation }}/main.yml"
 
 - include: modules.yml
   tags: modules
