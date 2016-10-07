@@ -23,6 +23,7 @@
   with_items: "{{ httpd_sites }}"
   when: "{{ item.enabled }}"
   become: yes
+  notify: restart httpd
 
 - name: sites | disable sites
   file:
@@ -31,3 +32,4 @@
   with_items: "{{ httpd_sites }}"
   when: "{{ not item.enabled }}"
   become: yes
+  notify: restart httpd

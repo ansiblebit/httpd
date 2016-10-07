@@ -14,6 +14,7 @@
   with_items: "{{ httpd_modules_static }}"
   when: "{{ item.enabled and item.configuration is defined }}"
   become: yes
+  notify: restart httpd
 
 - name: modules | static | remove configuration
   file:
@@ -22,6 +23,7 @@
   with_items: "{{ httpd_modules_static }}"
   when: "{{ not item.enabled }}"
   become: yes
+  notify: restart httpd
 
 - name: modules | dynamic | setup .load files
   template:
@@ -52,6 +54,7 @@
   with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ item.enabled }}"
   become: yes
+  notify: restart httpd
 
 - name: modules | dynamic | enable modules (.conf)
   file:
@@ -61,6 +64,7 @@
   with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ item.enabled and item.configuration is defined }}"
   become: yes
+  notify: restart httpd
 
 - name: modules | dynamic | disable modules
   file:
@@ -69,6 +73,7 @@
   with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ not item.enabled }}"
   become: yes
+  notify: restart httpd
 
 - name: modules | dynamic | remove configuration
   file:
@@ -77,3 +82,4 @@
   with_items: "{{ httpd_modules_dynamic }}"
   when: "{{ not item.enabled }}"
   become: yes
+  notify: restart httpd
