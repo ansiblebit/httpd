@@ -41,6 +41,16 @@
   become: yes
   notify: restart httpd
 
+- name: package | configuration | envvars
+  copy:
+    content="{{ httpd_configuration_envvars }}"
+    dest="{{ httpd_dir_configuration }}/envvars"
+    owner=root
+    group=root
+    mode=0644
+  become: yes
+  notify: restart httpd
+
 - name: package | configuration | /etc/httpd/ports.conf
   template:
     src=etc/httpd/ports.conf.j2
