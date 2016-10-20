@@ -70,6 +70,8 @@ Variables specific to the `build` installation process.
 - **httpd_build_options**: option to be passed to `configure`.
 - **httpd_dir**: symlink to the enabled [apache][apache] installation.
 - **httpd_dir_source**: directory where to build [apache][apache].
+- **httpd_env**: environment variables.
+- **httpd_environment**: [apache][apache] environment.
 - **httpd_force_build**: flag to indicate if a build is to be triggered no matter the server state.
 - **httpd_download_url**: the URL for the tarball.
 - **httpd_download_url_asc**: the URL for the tarball PGP signature.
